@@ -1,0 +1,16 @@
+TrafficJam 1 1 1 1 1
+TrafficJam 1 1 0 1 0
+TrafficJam 1 1 0 1 0
+TrafficJam 1 1 0 1 0
+TrafficJam 1 1 1 1 0
+TrafficJam 1 1 1 1 0
+1 0 0 0 1
+TrafficJam 1 1 1 1 0
+TrafficJam 1 1 1 1 0
+TrafficJam 1 1 1 1 0
+TrafficJam 1 1 1 1 0
+TrafficJam 1 1 1 1 0
+TrafficJam 1 1 1 1 0
+TrafficJam 1 1 1 1 0
+TrafficJam 1 1 1 1 0
+TrafficJam 1 1 1 1 1
