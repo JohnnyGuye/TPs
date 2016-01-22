@@ -1,0 +1,30 @@
+# depslib dependency file v1.0
+1453470708 source:d:\programmation\c++ et c\tpc++4\main.cpp
+	<iostream>
+
+1453473600 source:d:\programmation\c++ et c\tpc++4\src\shape.cpp
+	"Shape.h"
+
+1453473558 d:\programmation\c++ et c\tpc++4\include\shape.h
+	<Vector2D.h>
+	<string>
+	<vector>
+
+1453470727 source:d:\programmation\c++ et c\tpc++4\src\shapemanager.cpp
+	"ShapeManager.h"
+
+1453471381 d:\programmation\c++ et c\tpc++4\include\shapemanager.h
+	<map>
+	<vector>
+	<deque>
+	<stack>
+	<string>
+	<Shape.h>
+
+1453474514 d:\programmation\c++ et c\tpc++4\include\vector2d.h
+	<cmath>
+	<iostream>
+
+1453472806 source:d:\programmation\c++ et c\tpc++4\src\vector2d.cpp
+	"Vector2D.h"
+
