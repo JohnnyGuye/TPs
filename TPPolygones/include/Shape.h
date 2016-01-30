@@ -18,12 +18,6 @@ class Shape
 
 	// --------------------------------------------- Methods
 	public:
-		static bool Unify(std::string name, Shape* shape1, Shape* shape2);
-		static bool Unify(std::string name, std::vector<Shape*> shapes);
-
-		static bool Intersect(std::string name, Shape* shape1, Shape* shape2);
-		static bool Intersect(std::string name, std::vector<Shape*> shapes);
-
 		Vector2D& Move(Vector2D const vect);
 		Vector2D GetOffset() const;
 
@@ -37,6 +31,7 @@ class Shape
 
 		Shape(std::string name = "", int shapeType = NOT_SHAPE);
 		virtual ~Shape();
+		virtual Shape* Clone() = 0;
 	protected:
 		std::string name;
 		Vector2D offset;

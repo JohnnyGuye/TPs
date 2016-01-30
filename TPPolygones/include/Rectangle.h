@@ -11,7 +11,7 @@ class Rectangle : public ShapeSingle
 	public:
 		Rectangle(std::string name, int x1, int y1, int x2, int y2);
 		Rectangle(std::string name, Vector2D vect1, Vector2D vect2);
-		Rectangle(std::string name, Rectangle& copie);
+		Rectangle(const Rectangle& copie);
 
         /** \brief Verify if the point is in the shape
          *
@@ -27,6 +27,7 @@ class Rectangle : public ShapeSingle
          * \return true if in the shape, false if not
          */
 		virtual bool IsInShape(int x, int y) const;
+		virtual Shape* Clone();
 
 		Rectangle();
 		virtual ~Rectangle();

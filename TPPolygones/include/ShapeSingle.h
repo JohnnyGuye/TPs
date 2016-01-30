@@ -14,6 +14,7 @@ class ShapeSingle : public Shape
 
 		virtual bool IsInShape(Vector2D point) const = 0;
 		virtual bool IsInShape(int x, int y) const = 0;
+		virtual Shape* Clone() = 0;
 	protected:
 		std::vector<Vector2D> points;
 	private:

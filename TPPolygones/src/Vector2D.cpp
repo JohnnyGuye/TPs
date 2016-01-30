@@ -102,7 +102,7 @@ bool Vector2D::operator!=(const Vector2D& other) const
 
 double Vector2D::angle(const Vector2D& vect1, const Vector2D& vect2)
 {
-    return 0.0;
+    return acos((vect1*vect2) / (vect1.length() * vect2.length()));
 }
 
 Vector2D& Vector2D::normalize()
@@ -126,6 +126,11 @@ string Vector2D::toString() const
 double Vector2D::scalarProduct(const Vector2D & other) const
 {
     return (other.x * x + other.y * y);
+}
+
+double Vector2D::operator*(const Vector2D& other)   const
+{
+    return (this->scalarProduct(other));
 }
 
 Vector2D::~Vector2D(){}

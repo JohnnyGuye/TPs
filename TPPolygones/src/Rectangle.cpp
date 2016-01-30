@@ -16,15 +16,18 @@ Rectangle::Rectangle(string name, int x1, int y1, int x2, int y2)
 	points.push_back(Vector2D(x2,y2));
 }
 
-Rectangle::Rectangle(string name, Rectangle& copie)
+Rectangle::Rectangle(const Rectangle& copie)
+: ShapeSingle(name, Shape::RECTANGLE)
 {
-	this->name = name;
-	this->shapeType = Shape::RECTANGLE;
 	this->offset = copie.offset;
-	for(int i = 0; i < copie.points.size() ; i++)
+	for(unsigned int i = 0; i < copie.points.size() ; i++)
 		this->points.push_back(copie.points[i]);
 }
 
+Shape* Rectangle::Clone()
+{
+	return new Rectangle(*this);
+}
 Rectangle::~Rectangle()
 {
 }

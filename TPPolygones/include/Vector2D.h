@@ -14,6 +14,8 @@
 #include <cmath>
 #include <iostream>
 #include <sstream>
+
+#define PI 3.1415927
 //------------------------------------------------------------------------
 ///This class is a point.
 //------------------------------------------------------------------------
@@ -32,6 +34,7 @@ public:
 	Vector2D        operator-() const;
     Vector2D        operator*(const double num) const;
 	Vector2D        operator/(const double num) const;
+	double 			operator*(const Vector2D& other) const;
 
 	Vector2D&       operator=(const Vector2D& other);
 

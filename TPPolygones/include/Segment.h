@@ -11,7 +11,7 @@ class Segment : public ShapeSingle
 	public:
 		Segment(std::string name, int x1, int y1, int x2, int y2);
 		Segment(std::string name, Vector2D vect1, Vector2D vect2);
-		Segment(std::string name, Segment& copie);
+		Segment(const Segment& copie);
 
         /** \brief Verify if the point is in the shape
          *
@@ -27,7 +27,7 @@ class Segment : public ShapeSingle
          * \return true if in the shape, false if not
          */
 		virtual bool IsInShape(int x, int y) const;
-
+		virtual Shape* Clone();
 		Segment();
 		virtual ~Segment();
 	private:

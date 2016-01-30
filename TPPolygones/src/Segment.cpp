@@ -16,7 +16,7 @@ Segment::Segment(string name, int x1, int y1, int x2, int y2)
 	points.push_back(Vector2D(x2,y2));
 }
 
-Segment::Segment(string name, Segment& copie)
+Segment::Segment(const Segment& copie)
 {
 	this->name = name;
 	this->shapeType = Shape::SEGMENT;
@@ -29,6 +29,10 @@ Segment::~Segment()
 {
 }
 
+Shape* Segment::Clone()
+{
+	return new Segment(*this);
+}
 bool Segment::IsInShape(int const x, int const y) const
 {
 	Vector2D vect1 = Vector2D(x - offset.GetX(), y - offset.GetY());

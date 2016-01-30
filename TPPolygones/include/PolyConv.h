@@ -11,7 +11,7 @@ class PolyConv : public ShapeSingle
 	public:
 		PolyConv(std::string name, int x1, int y1, int x2, int y2);
 		PolyConv(std::string name, Vector2D vect1, Vector2D vect2);
-		PolyConv(std::string name, PolyConv& copie);
+		PolyConv(const PolyConv& copie);
 
         /** \brief Verify if the point is in the shape
          *
