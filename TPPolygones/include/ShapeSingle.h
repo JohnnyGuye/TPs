@@ -20,6 +20,8 @@ class ShapeSingle : public Shape
 		virtual bool IsInShape(int x, int y) const = 0;
 
 		virtual Shape* Clone() = 0;
+
+		vector<Vector2D> GetPositions();
 	protected:
 		std::vector<Vector2D> points;
 	private:

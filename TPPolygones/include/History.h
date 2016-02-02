@@ -37,15 +37,19 @@ public:
     //
     // Contrat :
     //
-    virtual void undo();
+
+    void undo();
     // Mode d'emploi:
     // defaire la derniere action
     
-    virtual void redo();
+    void redo();
     // Mode d'emploi:
     // refaire la derniere action defaite
     
     
+    void newFunction(UndoRedoFunction new);
+    // Mode d'emploi:
+    // ajoute l'action dans la pile et appelle la methode do
 
 //------------------------------------------------------------------ PRIVE 
 protected:

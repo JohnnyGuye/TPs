@@ -21,5 +21,8 @@ public:
     * \brief Cancel the action
     */
     virtual void cancel() = 0;
+
+protected:
+    ShapeManager shapeManager;
 };
 #endif // UNDOREDOFUNCTION

@@ -102,6 +102,52 @@ bool ShapeManager::Move(string name, Vector2D delta)
 	return Answer(name + " has been moved from " + offsetOld.toString() + " to " + offsetNew.toString(), true );
 }
 
+bool ShapeManager::Store(string fileName)
+{
+	std::ofstream storeFile(fileName.c_str());
+	if (std::ifstream ifile(fileName).fail())
+	{
+		return Answer("File already exists",false);
+	}
+	if(storeFile)
+	{
+		ShapeMap::iterator shapeIt = ShapeTable.begin();
+		while(shapeIt != ShapeTable.end())
+		{
+			Shape tmp = shapeIt->second;
+			string details;
+			switch(tmp.shapeType )
+			{
+			case Shape::SEGMENT:
+				details = "S"+" "+tmp.name;
+				for(Vector2D vect : tmp.GetPositions)
+					details +=" "+vect.GetX()+ " " + vect.GetY();
+			case Shape::RECTANGLE:
+				details = "R "+tmp.name;
+				for(Vector2D vect : tmp.GetPositions)
+					details +=" "+vect.GetX()+ " " + vect.GetY();
+			case Shape::POLYCONV:
+				details = "PC "+tmp.name;
+				for(Vector2D vect : tmp.GetPositions)
+					details +=" "+vect.GetX()+ " " + vect.GetY();
+			case Shape::REUSHAPE:
+			case Shape::INTERSHAPE:
+			case Shape::NOT_SHAPE:
+			}
+
+		}
+	} else
+	{
+		return Answer("Unable to create file",false);
+	}
+	return Answer("The shapes are now stored in the file " + fileName,true);
+}
+
+bool ShapeManager::Load(string fileName){
+	return Answer("The shapes have been copied into the local context",true);
+}
+
+
 void ShapeManager::Read()
 {
 	string line = "";
@@ -129,7 +175,7 @@ void ShapeManager::Read()
 				}
 				catch(exception e)
 				{
-					Answer("Invalide syntax. Here is the truth: ");
+					Answer("Invalid syntax. Here is the truth: ");
 					Answer("S name x y x' y'");
 				}
 			}
@@ -146,7 +192,7 @@ void ShapeManager::Read()
 				}
 				catch(exception e)
 				{
-					Answer("Invalide syntax. Here is the truth: ");
+					Answer("Invalid syntax. Here is the truth: ");
 					Answer("R name x y x' y'");
 				}
 			}
