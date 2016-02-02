@@ -8,59 +8,25 @@
 //---------- Interface de la classe <Delete> (fichier Delete.h) ------
 #if ! defined ( DELETE )
 #define DELETE
-#include "Shape.h"
-//--------------------------------------------------- Interfaces utilisées
 
-//------------------------------------------------------------- Constantes 
+#include "UndoRedoFunction.h"
 
-//------------------------------------------------------------------ Types 
-
-//------------------------------------------------------------------------ 
-// Rôle de la classe <Delete>
-//
-//
-//------------------------------------------------------------------------ 
-
-class Delete 
+class Delete : public UndoRedoFunction
 {
-//----------------------------------------------------------------- PUBLIC
 
 public:
-//----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste de paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+
+    Delete ( Shape* shape = nullptr, ShapeManager* shapeManager = nullptr);
 
     virtual ~Delete ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-    
+
     virtual void Do();
-    // Mode d'emploi :
-    // Execute l'action
-    
+
     virtual void Cancel();
-    // Mode d'emploi :
-    // Execute l'action inverse
-
-//------------------------------------------------------------------ PRIVE 
 
 protected:
-//----------------------------------------------------- Méthodes protégées
 
-private:
-//------------------------------------------------------- Méthodes privées
-
-protected:
-//----------------------------------------------------- Attributs protégés
-
-Shape shape;
-
-
+Shape* shape;
 
 };
 

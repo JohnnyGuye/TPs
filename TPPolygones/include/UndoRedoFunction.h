@@ -8,18 +8,27 @@
 #if ! defined ( UNDOREDOFUNCTION )
 #define UNDOREDOFUNCTION
 
+#include "ShapeManager.h"
+
 class UndoRedoFunction // interface
 {
 
 public:
+
+    UndoRedoFunction(ShapeManager* shapeManager = NULL);
     /**
     * \brief Do the action
     **/
-    virtual void do() = 0;
+    virtual void Do() = 0;
 
     /**
     * \brief Cancel the action
     */
-    virtual void cancel() = 0;
+    virtual void Cancel() = 0;
+
+    virtual ~UndoRedoFunction();
+
+protected:
+    ShapeManager* shapeManager;
 };
 #endif // UNDOREDOFUNCTION

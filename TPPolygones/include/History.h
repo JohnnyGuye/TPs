@@ -1,7 +1,7 @@
 /*************************************************************************
                            History.h  -  description
                              -------------------
-    début                : 2016.01.22
+    d�but                : 2016.01.22
     copyright            : (C) 2016 par B3434 Lucas Ono & Quentin "Johnny" Guye
 *************************************************************************/
 
@@ -9,53 +9,37 @@
 #if ! defined ( LOADALL )
 #define LOADALL
 
-//--------------------------------------------------- Interfaces utilisées
+//--------------------------------------------------- Interfaces utilis�es
 #include "UndoRedoFunction.h"
 
 #include "deque"
-#include "stack"
-//------------------------------------------------------------- Constantes 
-
-//------------------------------------------------------------------ Types 
-
-//------------------------------------------------------------------------ 
-// Rôle de la classe <History.h>
-//
-//
-//------------------------------------------------------------------------ 
 
 class History
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- M�thodes publiques
 
-
+	History();
     virtual ~History ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-    virtual void undo();
-    // Mode d'emploi:
-    // defaire la derniere action
-    
-    virtual void redo();
-    // Mode d'emploi:
-    // refaire la derniere action defaite
-    
-    
 
-//------------------------------------------------------------------ PRIVE 
+    virtual void Do(UndoRedoFunction* urf);
+
+    virtual void Undo();
+
+    virtual void Redo();
+
+	virtual void Read();
+
 protected:
-//----------------------------------------------------- Attributs protégés
-	std::deque<UndoRedoFunction> undoDeque;
-	std::stack<UndoRedoFunction> redoStack;
+
+	std::deque<UndoRedoFunction*> undoDeque;
+	std::deque<UndoRedoFunction*> redoDeque;
+	int const STACK_MAX = 20;
+	ShapeManager* Manager;
 
 
 };
-
-//----------------------------------------- Types dépendants de <LoadAll>
 
 #endif // LOADALL

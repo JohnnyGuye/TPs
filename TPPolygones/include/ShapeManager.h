@@ -22,9 +22,6 @@ typedef std::map<std::string, Shape*> ShapeMap;
 class ShapeManager
 {
 	public:
-        /** \brief The methods wich reads the command.
-         */
-		void Read();
 
         /** \brief standardize the answer of the program
          *
@@ -38,9 +35,14 @@ class ShapeManager
 		bool Add(Shape* shape);
 		bool Delete(std::string name);
 		bool Remove(std::string const name);
-		bool Move(std::string const name, Vector2D const vect);
+		bool Move(std::string const& name, Vector2D const& vect);
 		bool Load(std::string const fileName);
 		bool Empty();
+
+		void List();
+
+		bool IsInTable(std::string name);
+		Shape* findShape(std::string name);
 
 		ShapeManager();
 		virtual ~ShapeManager();

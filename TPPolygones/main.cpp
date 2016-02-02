@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include <ShapeManager.h>
+#include <History.h>
 
 using namespace std;
 
@@ -16,8 +16,8 @@ int main()
 		<< " - HIT [name] x y : verify if the point is in the shape " << endl
 		<< endl;
 
-    ShapeManager Manager = ShapeManager();
-	Manager.Read();
+	History history = History();
+	history.Read();
 
 	cout << " ================================" << endl;
 	cout << "=== It was nice to meet you ! ===" << endl;

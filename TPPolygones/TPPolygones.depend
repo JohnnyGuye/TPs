@@ -39,11 +39,11 @@
 	<vector>
 	<ShapeSingle.h>
 
-1454175625 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\main.cpp
+1454427932 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\main.cpp
 	<iostream>
-	<ShapeManager.h>
+	<History.h>
 
-1454378829 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapemanager.h
+1454433058 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapemanager.h
 	<string>
 	<cstring>
 	<sstream>
@@ -70,7 +70,7 @@
 	<iostream>
 	<sstream>
 
-1454380678 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapemanager.cpp
+1454429690 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapemanager.cpp
 	"ShapeManager.h"
 
 1454355435 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapesingle.cpp
@@ -81,7 +81,7 @@
 	<vector>
 	<Vector2D.h>
 
-1454364489 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\segment.cpp
+1454409405 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\segment.cpp
 	"Segment.h"
 
 1454164540 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\segment.h
@@ -137,4 +137,56 @@
 	<Segment.h>
 	<PolyConv.h>
 	<vector>
+
+1454425624 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\create.cpp
+	"Create.h"
+
+1454425009 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\create.h
+	"Shape.h"
+	"UndoRedoFunction.h"
+
+1454425608 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\undoredofunction.h
+	"ShapeManager.h"
+
+1454425855 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\delete.cpp
+	"Delete.h"
+
+1454425323 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\delete.h
+	"UndoRedoFunction.h"
+
+1454433186 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\history.cpp
+	"History.h"
+	"util.h"
+	"Create.h"
+	"Move.h"
+	"Delete.h"
+	"LoadAll.h"
+	"DeleteAll.h"
+
+1454425579 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\undoredofunction.cpp
+	"Create.h"
+
+1454426519 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\move.cpp
+	"Move.h"
+
+1454426506 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\move.h
+	"UndoRedoFunction.h"
+
+1454432259 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\history.h
+	"UndoRedoFunction.h"
+	"deque"
+
+1454430776 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\util.h
+	<string>
+	<vector>
+	<sstream>
+
+1454430763 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\util.cpp
+	"util.h"
+
+1454421546 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\loadall.h
+	"Shape.h"
+
+1454432862 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\deleteall.h
+	"Shape.h"
 

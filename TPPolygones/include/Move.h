@@ -10,46 +10,24 @@
 #define MOVE
 
 //--------------------------------------------------- Interfaces utilisées
-#include "Shape.h"
-#include "Vector2D.h"
-//------------------------------------------------------------- Constantes 
-
-//------------------------------------------------------------------ Types 
-
-//------------------------------------------------------------------------ 
-// Rôle de la classe <Move.h>
-//
-//
-//------------------------------------------------------------------------ 
+#include "UndoRedoFunction.h"
 
 class Move : public UndoRedoFunction
 {
-//----------------------------------------------------------------- PUBLIC
-
 public:
 //----------------------------------------------------- Méthodes publiques
 
+    Move(Shape* shape, Vector2D vect, ShapeManager* shapeManager);
 
     virtual ~Move ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-    virtual void do();
-    // Mode d'emploi:
-    // execute la methode move de shape avec direction en parametre
-    
-    virtual void cancel();
-    // Mode d'emploi:
-    // deplace la forme associe  avec -direction en parametre;
-    
-    
 
-//------------------------------------------------------------------ PRIVE 
+    virtual void Do();
+
+    virtual void Cancel();
 
 protected:
 //----------------------------------------------------- Attributs protégés
-	Shape shape;
+	Shape* shape;
 	Vector2D direction;
 
 
