@@ -1,27 +1,30 @@
 /*************************************************************************
-                           DeleteAll.h  -  description
+                           History.h  -  description
                              -------------------
     début                : 2016.01.22
     copyright            : (C) 2016 par B3434 Lucas Ono & Quentin "Johnny" Guye
 *************************************************************************/
 
-//---------- Interface de la classe <DeleteAll.h> (fichier DeleteAll.h) ------
-#if ! defined ( DELETEALL )
-#define DELETEALL
+//---------- Interface de la classe <History.h> (fichier History.h) ------
+#if ! defined ( LOADALL )
+#define LOADALL
 
 //--------------------------------------------------- Interfaces utilisées
-#include "Shape.h"
+#include "UndoRedoFunction.h"
+
+#include "deque"
+#include "stack"
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types 
 
 //------------------------------------------------------------------------ 
-// Rôle de la classe <DeleteAll.h>
+// Rôle de la classe <History.h>
 //
 //
 //------------------------------------------------------------------------ 
 
-class DeleteAll : public UndoRedoFunction
+class History
 {
 //----------------------------------------------------------------- PUBLIC
 
@@ -29,29 +32,30 @@ public:
 //----------------------------------------------------- Méthodes publiques
 
 
-    virtual ~DeleteAll ( );
+    virtual ~History ( );
     // Mode d'emploi :
     //
     // Contrat :
     //
-    virtual void do();
+    virtual void undo();
     // Mode d'emploi:
-    // execute la methode move de shape avec direction en parametre
+    // defaire la derniere action
     
-    virtual void cancel();
+    virtual void redo();
     // Mode d'emploi:
-    // deplace la forme associe  avec -direction en parametre;
+    // refaire la derniere action defaite
     
     
 
 //------------------------------------------------------------------ PRIVE 
 protected:
 //----------------------------------------------------- Attributs protégés
-	std::map<string,Shape> shapes;
+	std::deque<UndoRedoFunction> undoDeque;
+	std::stack<UndoRedoFunction> redoStack;
 
 
 };
 
-//----------------------------------------- Types dépendants de <DeleteAll>
+//----------------------------------------- Types dépendants de <LoadAll>
 
-#endif // DELETEALL
+#endif // LOADALL

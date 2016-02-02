@@ -1,7 +1,7 @@
 /*************************************************************************
                            Create  -  description
                              -------------------
-    début                : ${date}
+    début                : 2016.01.22
     copyright            : (C) 2016 par B3434 Lucas Ono & Quentin "Johnny" Guye
 *************************************************************************/
 
@@ -22,7 +22,7 @@
 //
 //------------------------------------------------------------------------ 
 
-class Create // interface
+class Create: public UndoRedoFunction
 {
 //----------------------------------------------------------------- PUBLIC
 
@@ -34,17 +34,25 @@ public:
     // Contrat :
     //
 
+	Create ( const Create & unCreate);
+	// Mode d'emploi : Constructeur de copie
+	//
+
+	Create ( Shape theShape)
+	// Mode d'emploi :
+	// cree l'objet a partir de shape
+
     virtual ~Create ( );
     // Mode d'emploi :
     //
     // Contrat :
     //
     
-    virtual void do();
+    virtual void Do();
     // Mode d'emploi :
     // Execute l'action
     
-    virtual void cancel();
+    virtual void Cancel();
     // Mode d'emploi :
     // Execute l'action inverse
 

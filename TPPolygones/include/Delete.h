@@ -39,11 +39,11 @@ public:
     // Contrat :
     //
     
-    virtual void do();
+    virtual void Do();
     // Mode d'emploi :
     // Execute l'action
     
-    virtual void cancel();
+    virtual void Cancel();
     // Mode d'emploi :
     // Execute l'action inverse
 

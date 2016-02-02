@@ -34,11 +34,11 @@ public:
     //
     // Contrat :
     //
-    virtual void do();
+    virtual void Do();
     // Mode d'emploi:
     // execute la methode move de shape avec direction en parametre
     
-    virtual void cancel();
+    virtual void Cancel();
     // Mode d'emploi:
     // deplace la forme associe  avec -direction en parametre;
     

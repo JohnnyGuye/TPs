@@ -10,7 +10,7 @@
 #define UNDOREDOFUNCTION
 
 //--------------------------------------------------- Interfaces utilisées
-
+#include "ShapeManager.h"
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types 
@@ -39,11 +39,11 @@ public:
     // Contrat :
     //
     
-    virtual void do() =0;
+    virtual void Do() =0;
     // Mode d'emploi :
     // Execute l'action
     
-    virtual void cancel() = 0;
+    virtual void Cancel() = 0;
     // Mode d'emploi :
     // Execute l'action inverse
 
@@ -57,7 +57,7 @@ private:
 
 protected:
 //----------------------------------------------------- Attributs protégés
-
+ShapeManager shapeManager;
 private:
 //------------------------------------------------------- Attributs privés
 
