@@ -34,15 +34,31 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/Create.h" />
+		<Unit filename="include/Delete.h" />
+		<Unit filename="include/DeleteAll.h" />
+		<Unit filename="include/LoadAll.h" />
+		<Unit filename="include/Move.h" />
+		<Unit filename="include/PolyConv.h" />
+		<Unit filename="include/PolyIntersect.h" />
+		<Unit filename="include/PolyUnion.h" />
+		<Unit filename="include/Rectangle.h" />
 		<Unit filename="include/Segment.h" />
 		<Unit filename="include/Shape.h" />
 		<Unit filename="include/ShapeManager.h" />
+		<Unit filename="include/ShapeMultiple.h" />
 		<Unit filename="include/ShapeSingle.h" />
+		<Unit filename="include/UndoRedoFunction.h" />
 		<Unit filename="include/Vector2D.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/PolyConv.cpp" />
+		<Unit filename="src/PolyIntersect.cpp" />
+		<Unit filename="src/PolyUnion.cpp" />
+		<Unit filename="src/Rectangle.cpp" />
 		<Unit filename="src/Segment.cpp" />
 		<Unit filename="src/Shape.cpp" />
 		<Unit filename="src/ShapeManager.cpp" />
+		<Unit filename="src/ShapeMultiple.cpp" />
 		<Unit filename="src/ShapeSingle.cpp" />
 		<Unit filename="src/Vector2D.cpp" />
 		<Extensions>
