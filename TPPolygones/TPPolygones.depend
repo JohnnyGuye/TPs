@@ -39,11 +39,11 @@
 	<vector>
 	<ShapeSingle.h>
 
-1453512710 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\main.cpp
+1454175625 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\main.cpp
 	<iostream>
 	<ShapeManager.h>
 
-1453678114 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapemanager.h
+1454378829 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapemanager.h
 	<string>
 	<cstring>
 	<sstream>
@@ -51,35 +51,37 @@
 	<Segment.h>
 	<Rectangle.h>
 	<PolyConv.h>
+	<PolyUnion.h>
+	<PolyIntersect.h>
 	<map>
 	<tuple>
 	<iostream>
 
-1454154958 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shape.cpp
+1454355305 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shape.cpp
 	"Shape.h"
 
-1454163102 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shape.h
+1454346011 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shape.h
 	<Vector2D.h>
 	<string>
 	<vector>
 
-1454170821 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\vector2d.h
+1454176656 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\vector2d.h
 	<cmath>
 	<iostream>
 	<sstream>
 
-1453678840 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapemanager.cpp
+1454380678 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapemanager.cpp
 	"ShapeManager.h"
 
-1454164862 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapesingle.cpp
+1454355435 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapesingle.cpp
 	"ShapeSingle.h"
 
-1454163166 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapesingle.h
+1454344930 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapesingle.h
 	<Shape.h>
 	<vector>
 	<Vector2D.h>
 
-1454164622 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\segment.cpp
+1454364489 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\segment.cpp
 	"Segment.h"
 
 1454164540 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\segment.h
@@ -87,21 +89,21 @@
 	<vector>
 	<ShapeSingle.h>
 
-1454168920 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\vector2d.cpp
+1454176665 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\vector2d.cpp
 	"Vector2D.h"
 
-1454164841 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\rectangle.cpp
+1454364467 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\rectangle.cpp
 	"Rectangle.h"
 
-1454164672 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\rectangle.h
+1454332042 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\rectangle.h
 	<string>
 	<vector>
 	<ShapeSingle.h>
 
-1454168892 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\polyconv.cpp
+1454364454 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\polyconv.cpp
 	"PolyConv.h"
 
-1454165257 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\polyconv.h
+1454248440 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\polyconv.h
 	<string>
 	<vector>
 	<ShapeSingle.h>
@@ -114,18 +116,18 @@
 	<PolyConv.h>
 	<vector>
 
-1454163126 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapemultiple.h
+1454373506 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapemultiple.h
 	<vector>
 	<Vector2D.h>
 	<Shape.h>
 
-1454167944 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\polyunion.cpp
+1454373367 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\polyunion.cpp
 	"PolyUnion.h"
 
-1454154160 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapemultiple.cpp
+1454373266 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapemultiple.cpp
 	"ShapeMultiple.h"
 
-1454167871 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\polyintersect.cpp
+1454373368 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\polyintersect.cpp
 	"PolyIntersect.h"
 
 1454165939 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\polyintersect.h

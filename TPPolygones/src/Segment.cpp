@@ -17,12 +17,9 @@ Segment::Segment(string name, int x1, int y1, int x2, int y2)
 }
 
 Segment::Segment(const Segment& copie)
+: ShapeSingle(copie)
 {
-	this->name = name;
 	this->shapeType = Shape::SEGMENT;
-	this->offset = copie.offset;
-	for(int i = 0; i < copie.points.size() ; i++)
-		this->points.push_back(copie.points[i]);
 }
 
 Segment::~Segment()
@@ -38,13 +35,13 @@ bool Segment::IsInShape(int const x, int const y) const
 	Vector2D vect1 = Vector2D(x - offset.GetX(), y - offset.GetY());
 	Vector2D seg = Vector2D(points[1].GetX() - points[0].GetX(), points[1].GetY() - points[0].GetY());
 
-	if(seg.length() < vect1.length())
+	if((vect1 - points[0]).length() > seg.length())
 	{
 		cerr << "Too far !";
 		return false;
 	}
 
-	if(vect1.GetX() * seg.GetX() >= 0 && vect1.GetY() * seg.GetY() > 0 )
+	if(!(vect1.GetX() * seg.GetX() >= 0 && vect1.GetY() * seg.GetY() > 0 ))
 	{
 		cerr << "Wrong direction !";
 		return false;
@@ -54,13 +51,11 @@ bool Segment::IsInShape(int const x, int const y) const
 	seg.normalize();
 	vect1.normalize();
 
-	if(abs(seg.scalarProduct(vect1) - (seg.GetX() *seg.GetX() + seg.GetY() * seg.GetY())) > 0.01)
+	if(abs(seg.scalarProduct(vect1) - (seg.GetX() *seg.GetX() + seg.GetY() * seg.GetY())) > 0.1)//A retravailler !
 	{
 		cerr << "Not colinear !";
 		return false;
 	}
-
-
 
 	return true;
 }

@@ -102,12 +102,21 @@ bool Vector2D::operator!=(const Vector2D& other) const
 
 double Vector2D::angle(const Vector2D& vect1, const Vector2D& vect2)
 {
-    return acos((vect1*vect2) / (vect1.length() * vect2.length()));
+    double degree = acos((vect1*vect2) / (vect1.length() * vect2.length()));
+    if(Vector2D::det(vect1, vect2) >= 0 )
+        return degree;
+    else
+        return -degree;
 }
 
 Vector2D& Vector2D::normalize()
 {
     return ((*this)/=length());
+}
+
+double Vector2D::det(const Vector2D& vect1, const Vector2D& vect2)
+{
+    return vect1.x * vect2.y - vect2.x * vect1.y;
 }
 
 double Vector2D::length() const

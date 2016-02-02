@@ -9,6 +9,8 @@
 #include <Segment.h>
 #include <Rectangle.h>
 #include <PolyConv.h>
+#include <PolyUnion.h>
+#include <PolyIntersect.h>
 
 #include <map>
 #include <tuple>
@@ -34,6 +36,7 @@ class ShapeManager
 		bool Answer(std::string s, bool isOk = false);
 
 		bool Add(Shape* shape);
+		bool Delete(std::string name);
 		bool Remove(std::string const name);
 		bool Move(std::string const name, Vector2D const vect);
 		bool Load(std::string const fileName);

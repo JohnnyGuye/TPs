@@ -10,10 +10,15 @@ class ShapeSingle : public Shape
 
 	public:
 		ShapeSingle(std::string name = "", int shapeType = Shape::NOT_SHAPE);
+		ShapeSingle(const ShapeSingle& copie);
+
 		virtual ~ShapeSingle();
+
+		virtual std::string toString(int tab = -1) const;
 
 		virtual bool IsInShape(Vector2D point) const = 0;
 		virtual bool IsInShape(int x, int y) const = 0;
+
 		virtual Shape* Clone() = 0;
 	protected:
 		std::vector<Vector2D> points;

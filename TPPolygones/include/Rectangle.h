@@ -28,6 +28,7 @@ class Rectangle : public ShapeSingle
          */
 		virtual bool IsInShape(int x, int y) const;
 		virtual Shape* Clone();
+		Rectangle& operator=(const Rectangle& copie);
 
 		Rectangle();
 		virtual ~Rectangle();

@@ -5,12 +5,15 @@ using namespace std;
 Shape::Shape(string name, int shapeType )
 : name(name), offset(0,0), shapeType(shapeType)
 {
+}
 
+Shape::Shape(const Shape& copie)
+: name(copie.name), offset(copie.offset), shapeType(copie.shapeType)
+{
 }
 
 Shape::~Shape()
 {
-	//dtor
 }
 
 Vector2D& Shape::Move(Vector2D const vect)
@@ -35,7 +38,14 @@ string Shape::GetName() const
 	return name;
 }
 
-string Shape::toString() const
+string Shape::toString(int tab) const
 {
-	return name + ": ";
+	string s = "";
+	if(tab == 0)
+		s+="+";
+	for(int i = 0; i < tab; i++)
+	{
+		s+="-";
+	}
+	return s + name;
 }

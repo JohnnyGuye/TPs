@@ -10,28 +10,24 @@ PolyIntersect::PolyIntersect(string name, vector<Shape*> shapes)
 }
 
 PolyIntersect::PolyIntersect(const PolyIntersect& copie)
-: ShapeMultiple(name, Shape::INTERSHAPE)
+: ShapeMultiple(copie)
 {
-	for(Shape* sh : copie.shapes)
-		this->shapes.push_back(sh->Clone());
+	this->shapeType = copie.shapeType;
 }
 
 PolyIntersect::~PolyIntersect()
 {
-	for(Shape* sh : shapes)
-		delete sh;
 }
 
 bool PolyIntersect::IsInShape(Vector2D point) const
 {
 	point -= offset;
-	bool ans = true;
-		for(Shape* sh : shapes)
-		{
-			if(!sh->IsInShape(point))
-				ans = false;
-		}
-	return ans;
+	for(Shape* sh : shapes)
+	{
+		if(!sh->IsInShape(point))
+			return false;
+	}
+	return true;
 }
 
 bool PolyIntersect::IsInShape(int x, int y) const

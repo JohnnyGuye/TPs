@@ -48,8 +48,10 @@ public:
 
 	Vector2D& 		normalize();
 	double 			scalarProduct(const Vector2D & other) const;
+
 /* ==== Methods ==== */
 
+	static double	det(const Vector2D& vect1, const Vector2D& vect2);
 	static double 	angle(Vector2D const &vec1, Vector2D const &vec2);
 	static double 	length(Vector2D const &vec2D);
 	//static const Vector2D Zero = Vector2D(0,0);

@@ -27,9 +27,11 @@ class Shape
 		int GetType() const;
 		std::string GetName() const;
 
-		virtual std::string toString() const;
+		virtual std::string toString(int tab = -1) const;
 
 		Shape(std::string name = "", int shapeType = NOT_SHAPE);
+		Shape(const Shape& copie);
+
 		virtual ~Shape();
 		virtual Shape* Clone() = 0;
 	protected:

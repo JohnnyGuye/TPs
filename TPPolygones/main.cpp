@@ -18,6 +18,7 @@ int main()
 
     ShapeManager Manager = ShapeManager();
 	Manager.Read();
+
 	cout << " ================================" << endl;
 	cout << "=== It was nice to meet you ! ===" << endl;
 	cout << "=================================" << endl;

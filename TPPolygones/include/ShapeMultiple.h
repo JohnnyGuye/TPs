@@ -10,7 +10,10 @@ class ShapeMultiple: public Shape
 
 	public:
 		ShapeMultiple(std::string name, int shapeType);
+		ShapeMultiple(const ShapeMultiple& copie);
 		virtual ~ShapeMultiple();
+
+		virtual std::string toString(int tab = -1) const;
 
 		virtual bool IsInShape(Vector2D point) const = 0;
 		virtual bool IsInShape(int x, int y) const = 0;

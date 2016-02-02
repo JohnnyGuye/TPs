@@ -2,7 +2,7 @@
 
 using namespace std;
 
-bool VerifyConvexity(vector<Vector2D> points)
+bool PolyConv::VerifyConvexity(vector<Vector2D>& points)
 {
 	Vector2D BA, BC;
 	double sum = 0;
@@ -22,26 +22,22 @@ bool VerifyConvexity(vector<Vector2D> points)
 	return true;
 }
 
-PolyConv::PolyConv(string name, Vector2D vect1, Vector2D vect2)
-: ShapeSingle(name, Shape::POLYCONV)
+PolyConv::PolyConv(string nick, const vector<Vector2D>& points)
+: ShapeSingle(nick, Shape::POLYCONV)
 {
-	points.push_back(vect1);
-	points.push_back(vect2);
-}
-
-PolyConv::PolyConv(string name, int x1, int y1, int x2, int y2)
-: ShapeSingle(name, Shape::POLYCONV)
-{
-	points.push_back(Vector2D(x1,y1));
-	points.push_back(Vector2D(x2,y2));
+	for(Vector2D point : points)
+		this->points.push_back(point);
 }
 
 PolyConv::PolyConv(const PolyConv& copie)
-: ShapeSingle(name, Shape::POLYCONV)
+: ShapeSingle(copie)
 {
-	this->offset = copie.offset;
-	for(unsigned int i = 0; i < copie.points.size() ; i++)
-		this->points.push_back(copie.points[i]);
+	this->shapeType = Shape::POLYCONV;
+}
+
+Shape* PolyConv::Clone()
+{
+	return new PolyConv(*this);
 }
 
 PolyConv::~PolyConv()

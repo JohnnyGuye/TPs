@@ -17,11 +17,15 @@ Rectangle::Rectangle(string name, int x1, int y1, int x2, int y2)
 }
 
 Rectangle::Rectangle(const Rectangle& copie)
-: ShapeSingle(name, Shape::RECTANGLE)
+: ShapeSingle(copie)
 {
-	this->offset = copie.offset;
-	for(unsigned int i = 0; i < copie.points.size() ; i++)
-		this->points.push_back(copie.points[i]);
+	this->shapeType = Shape::RECTANGLE;
+}
+
+Rectangle& Rectangle::operator=(const Rectangle& copie)
+{
+	Rectangle copied = Rectangle(copie);
+	return copied;
 }
 
 Shape* Rectangle::Clone()
