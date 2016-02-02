@@ -4,6 +4,7 @@
 #include <string>
 #include <cstring>
 #include <sstream>
+#include <fstream>
 
 #include <Shape.h>
 #include <Segment.h>
@@ -36,6 +37,7 @@ class ShapeManager
 		bool Delete(std::string name);
 		bool Remove(std::string const name);
 		bool Move(std::string const& name, Vector2D const& vect);
+		bool Store(std::string const fileName);
 		bool Load(std::string const fileName);
 		bool Empty();
 

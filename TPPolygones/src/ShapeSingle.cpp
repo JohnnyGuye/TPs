@@ -18,6 +18,14 @@ ShapeSingle::~ShapeSingle()
 	//dtor
 }
 
+vector<Vector2D> ShapeSingle::GetPositions()
+{
+	vector<Vector2D> thePoints;
+	for(Vector2D vect : points)
+		thePoints.push_back(vect);
+	return thePoints;
+}
+
 string ShapeSingle::toString(int tab) const
 {
 	string s = Shape::toString(tab) + " is a ";

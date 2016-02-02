@@ -43,10 +43,11 @@
 	<iostream>
 	<History.h>
 
-1454433058 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapemanager.h
+1454434078 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapemanager.h
 	<string>
 	<cstring>
 	<sstream>
+	<fstream>
 	<Shape.h>
 	<Segment.h>
 	<Rectangle.h>
@@ -70,13 +71,13 @@
 	<iostream>
 	<sstream>
 
-1454429690 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapemanager.cpp
+1454434508 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapemanager.cpp
 	"ShapeManager.h"
 
 1454355435 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapesingle.cpp
 	"ShapeSingle.h"
 
-1454344930 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapesingle.h
+1454434058 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapesingle.h
 	<Shape.h>
 	<vector>
 	<Vector2D.h>
@@ -145,7 +146,7 @@
 	"Shape.h"
 	"UndoRedoFunction.h"
 
-1454425608 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\undoredofunction.h
+1454434116 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\undoredofunction.h
 	"ShapeManager.h"
 
 1454425855 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\delete.cpp
@@ -154,7 +155,7 @@
 1454425323 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\delete.h
 	"UndoRedoFunction.h"
 
-1454433186 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\history.cpp
+1454433748 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\history.cpp
 	"History.h"
 	"util.h"
 	"Create.h"
@@ -172,7 +173,7 @@
 1454426506 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\move.h
 	"UndoRedoFunction.h"
 
-1454432259 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\history.h
+1454433963 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\history.h
 	"UndoRedoFunction.h"
 	"deque"
 

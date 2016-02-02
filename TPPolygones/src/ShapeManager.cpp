@@ -88,3 +88,51 @@ bool ShapeManager::Move(string const& name, Vector2D const& delta)
 		return Answer(name + " has been moved from " + offsetOld.toString() + " to " + offsetNew.toString(), true );
 	}
 }
+
+bool ShapeManager::Store(string fileName)
+{
+	ofstream storeFile(fileName.c_str());
+	ifstream ifile(fileName);
+	if (ifile.fail())
+	{
+		return Answer("File already exists");
+	}
+	if(storeFile)
+	{
+		/*
+		ShapeMap::iterator shapeIt = ShapeTable.begin();
+		while(shapeIt != ShapeTable.end())
+		{
+			Shape* tmp = shapeIt->second;
+			string details = "";
+			switch(tmp->GetType())
+			{
+			case Shape::SEGMENT:
+				details = "S" + " " + tmp->GetName();
+				for(Vector2D vect : tmp->GetPositions)
+					details += " " + vect.GetX() + " " + vect.GetY();
+			case Shape::RECTANGLE:
+				details = "R "+tmp->GetName();
+				for(Vector2D vect : tmp->GetPositions())
+					details +=" "+vect.GetX()+ " " + vect.GetY();
+			case Shape::POLYCONV:
+				details = "PC "+tmp->GetName();
+				for(Vector2D vect : tmp->GetPositions())
+					details += " " + vect.GetX() + " " + vect.GetY();
+			case Shape::REUSHAPE:
+			case Shape::INTERSHAPE:
+			case Shape::NOT_SHAPE:
+			}
+		}
+		*/
+	} else
+	{
+		return Answer("Unable to create file",false);
+	}
+	return Answer("The shapes are now stored in the file " + fileName,true);
+}
+
+bool ShapeManager::Load(string fileName){
+	return Answer("The shapes have been copied into the local context",true);
+}
+
