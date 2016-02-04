@@ -30,37 +30,24 @@ Shape* Segment::Clone()
 {
 	return new Segment(*this);
 }
-bool Segment::IsInShape(int const x, int const y) const
+
+bool Segment::IsInShape(Vector2D P) const
 {
-	Vector2D vect1 = Vector2D(x - offset.GetX(), y - offset.GetY());
-	Vector2D seg = Vector2D(points[1].GetX() - points[0].GetX(), points[1].GetY() - points[0].GetY());
+	P -= offset;
+	Vector2D AB = points[1] - points[0];
+	Vector2D AP = P - points[0];
 
-	if((vect1 - points[0]).length() > seg.length())
-	{
-		cerr << "Too far !";
+    if(AB.length() < AP.length())
 		return false;
-	}
 
-	if(!(vect1.GetX() * seg.GetX() >= 0 && vect1.GetY() * seg.GetY() > 0 ))
-	{
-		cerr << "Wrong direction !";
+	if(AP.IsNull())
+		return true;
+
+	AP.normalize();
+	AB.normalize();
+
+	if(AB != AP)
 		return false;
-	}
-
-
-	seg.normalize();
-	vect1.normalize();
-
-	if(abs(seg.scalarProduct(vect1) - (seg.GetX() *seg.GetX() + seg.GetY() * seg.GetY())) > 0.1)//A retravailler !
-	{
-		cerr << "Not colinear !";
-		return false;
-	}
 
 	return true;
-}
-
-bool Segment::IsInShape(Vector2D point) const
-{
-	return IsInShape(point.GetX(), point.GetY());
 }

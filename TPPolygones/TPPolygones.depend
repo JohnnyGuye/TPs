@@ -39,11 +39,11 @@
 	<vector>
 	<ShapeSingle.h>
 
-1454427932 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\main.cpp
+1454518605 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\main.cpp
 	<iostream>
 	<History.h>
 
-1454434078 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapemanager.h
+1454544796 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapemanager.h
 	<string>
 	<cstring>
 	<sstream>
@@ -58,58 +58,58 @@
 	<tuple>
 	<iostream>
 
-1454355305 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shape.cpp
+1454462692 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shape.cpp
 	"Shape.h"
 
-1454346011 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shape.h
+1454546147 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shape.h
 	<Vector2D.h>
 	<string>
 	<vector>
 
-1454176656 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\vector2d.h
+1454545576 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\vector2d.h
 	<cmath>
 	<iostream>
 	<sstream>
 
-1454434508 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapemanager.cpp
+1454546027 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapemanager.cpp
 	"ShapeManager.h"
 
-1454355435 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapesingle.cpp
+1454541940 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapesingle.cpp
 	"ShapeSingle.h"
 
-1454434058 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapesingle.h
+1454547679 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapesingle.h
 	<Shape.h>
 	<vector>
 	<Vector2D.h>
 
-1454409405 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\segment.cpp
+1454546128 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\segment.cpp
 	"Segment.h"
 
-1454164540 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\segment.h
+1454546169 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\segment.h
 	<string>
 	<vector>
 	<ShapeSingle.h>
 
-1454176665 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\vector2d.cpp
+1454545726 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\vector2d.cpp
 	"Vector2D.h"
 
-1454364467 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\rectangle.cpp
+1454547137 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\rectangle.cpp
 	"Rectangle.h"
 
-1454332042 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\rectangle.h
+1454546179 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\rectangle.h
 	<string>
 	<vector>
 	<ShapeSingle.h>
 
-1454364454 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\polyconv.cpp
+1454546671 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\polyconv.cpp
 	"PolyConv.h"
 
-1454248440 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\polyconv.h
+1454546201 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\polyconv.h
 	<string>
 	<vector>
 	<ShapeSingle.h>
 
-1454165701 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\polyunion.h
+1454546201 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\polyunion.h
 	<iostream>
 	<ShapeMultiple.h>
 	<Rectangle.h>
@@ -117,21 +117,21 @@
 	<PolyConv.h>
 	<vector>
 
-1454373506 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapemultiple.h
+1454546219 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapemultiple.h
 	<vector>
 	<Vector2D.h>
 	<Shape.h>
 
-1454373367 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\polyunion.cpp
+1454546689 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\polyunion.cpp
 	"PolyUnion.h"
 
-1454373266 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapemultiple.cpp
+1454465191 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapemultiple.cpp
 	"ShapeMultiple.h"
 
-1454373368 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\polyintersect.cpp
+1454546683 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\polyintersect.cpp
 	"PolyIntersect.h"
 
-1454165939 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\polyintersect.h
+1454546201 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\polyintersect.h
 	<iostream>
 	<ShapeMultiple.h>
 	<Rectangle.h>
@@ -146,7 +146,7 @@
 	"Shape.h"
 	"UndoRedoFunction.h"
 
-1454434116 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\undoredofunction.h
+1454547525 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\undoredofunction.h
 	"ShapeManager.h"
 
 1454425855 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\delete.cpp
@@ -155,7 +155,7 @@
 1454425323 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\delete.h
 	"UndoRedoFunction.h"
 
-1454433748 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\history.cpp
+1454545800 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\history.cpp
 	"History.h"
 	"util.h"
 	"Create.h"
@@ -164,7 +164,7 @@
 	"LoadAll.h"
 	"DeleteAll.h"
 
-1454425579 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\undoredofunction.cpp
+1454542421 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\undoredofunction.cpp
 	"Create.h"
 
 1454426519 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\move.cpp
@@ -173,11 +173,11 @@
 1454426506 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\move.h
 	"UndoRedoFunction.h"
 
-1454433963 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\history.h
+1454542254 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\history.h
 	"UndoRedoFunction.h"
 	"deque"
 
-1454430776 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\util.h
+1454547419 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\util.h
 	<string>
 	<vector>
 	<sstream>
@@ -188,6 +188,10 @@
 1454421546 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\loadall.h
 	"Shape.h"
 
-1454432862 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\deleteall.h
-	"Shape.h"
+1454543915 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\deleteall.h
+	"UndoRedoFunction.h"
+	<vector>
+
+1454543921 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\deleteall.cpp
+	"DeleteAll.h"
 

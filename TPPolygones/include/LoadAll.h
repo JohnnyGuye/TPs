@@ -11,15 +11,6 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include "Shape.h"
-//------------------------------------------------------------- Constantes 
-
-//------------------------------------------------------------------ Types 
-
-//------------------------------------------------------------------------ 
-// Rôle de la classe <LoadAll.h>
-//
-//
-//------------------------------------------------------------------------ 
 
 class LoadAll : public UndoRedoFunction
 {
@@ -28,23 +19,17 @@ class LoadAll : public UndoRedoFunction
 public:
 //----------------------------------------------------- Méthodes publiques
 
+    LoadAll (ShapeManager* shapeManager = nullptr);
 
     virtual ~LoadAll ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-    virtual void Do();
-    // Mode d'emploi:
-    // execute la methode move de shape avec direction en parametre
-    
-    virtual void Cancel();
-    // Mode d'emploi:
-    // deplace la forme associe  avec -direction en parametre;
-    
-    
 
-//------------------------------------------------------------------ PRIVE 
+    /** Delete all the shapes **/
+    virtual void Do();
+
+    /** Restore all the shapes **/
+    virtual void Cancel();
+
+//------------------------------------------------------------------ PRIVE
 protected:
 //----------------------------------------------------- Attributs protégés
 	std::map<string,Shape> shapes;

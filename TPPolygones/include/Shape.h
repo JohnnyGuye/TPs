@@ -22,7 +22,6 @@ class Shape
 		Vector2D GetOffset() const;
 
 		virtual bool IsInShape(Vector2D point) const = 0;
-		virtual bool IsInShape(int x, int y) const = 0;
 
 		int GetType() const;
 		std::string GetName() const;

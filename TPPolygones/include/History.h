@@ -24,19 +24,35 @@ public:
 	History();
     virtual ~History ( );
 
-    virtual void Do(UndoRedoFunction* urf);
-
-    virtual void Undo();
-
-    virtual void Redo();
-
+	/**
+	* \brief Read inputs and try to do things
+	*/
 	virtual void Read();
 
 protected:
+	/**
+	* \brief  Add an UndoRedoFunction to the stack
+	* \param urf is the UndoRedoFunction object to add
+	**/
+    virtual void Do(UndoRedoFunction* urf);
+
+	/**
+	* \brief Cancel the last action
+	*/
+    virtual void Undo();
+
+	/**
+	* \brief Redo the last cancelled action
+	*/
+    virtual void Redo();
+
+protected:
+
+	int const STACK_MAX = 20;
 
 	std::deque<UndoRedoFunction*> undoDeque;
 	std::deque<UndoRedoFunction*> redoDeque;
-	int const STACK_MAX = 20;
+
 	ShapeManager* Manager;
 
 

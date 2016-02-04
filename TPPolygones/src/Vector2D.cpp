@@ -30,6 +30,11 @@ Vector2D::Vector2D (Vector2D const &vec2D)
 	this->y = vec2D.GetY();
 }
 
+bool Vector2D::IsNull() const
+{
+    return *this==Vector2D();
+}
+
 Vector2D Vector2D::operator+(const Vector2D& other) const
 {
     return Vector2D(x + other.x, y + other.y);

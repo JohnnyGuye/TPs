@@ -41,11 +41,9 @@ string Shape::GetName() const
 string Shape::toString(int tab) const
 {
 	string s = "";
-	if(tab == 0)
-		s+="+";
 	for(int i = 0; i < tab; i++)
-	{
-		s+="-";
-	}
+		s+=" ";
+	if(tab >= 0)
+		s+="+";
 	return s + name;
 }

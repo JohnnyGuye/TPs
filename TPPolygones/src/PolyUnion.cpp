@@ -30,11 +30,6 @@ bool PolyUnion::IsInShape(Vector2D point) const
 	return false;
 }
 
-bool PolyUnion::IsInShape(int x, int y) const
-{
-	return IsInShape(Vector2D(x,y));
-}
-
 Shape* PolyUnion::Clone()
 {
 	return new PolyUnion(*this);

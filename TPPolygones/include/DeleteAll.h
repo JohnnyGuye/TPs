@@ -6,20 +6,12 @@
 *************************************************************************/
 
 //---------- Interface de la classe <DeleteAll.h> (fichier DeleteAll.h) ------
-#if ! defined ( DELETEALL )
-#define DELETEALL
+#if ! defined ( DELETEALL_H )
+#define DELETEALL_H
 
-//--------------------------------------------------- Interfaces utilisées
-#include "Shape.h"
-//------------------------------------------------------------- Constantes
+#include "UndoRedoFunction.h"
+#include <vector>
 
-//------------------------------------------------------------------ Types
-
-//------------------------------------------------------------------------
-// Rôle de la classe <DeleteAll.h>
-//
-//
-//------------------------------------------------------------------------
 
 class DeleteAll : public UndoRedoFunction
 {
@@ -28,30 +20,23 @@ class DeleteAll : public UndoRedoFunction
 public:
 //----------------------------------------------------- Méthodes publiques
 
+    DeleteAll (ShapeManager* shapeManager = nullptr);
 
     virtual ~DeleteAll ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+
+    /** Delete all the shapes **/
     virtual void Do();
-    // Mode d'emploi:
-    // execute la methode move de shape avec direction en parametre
 
+    /** Restore all the shapes **/
     virtual void Cancel();
-    // Mode d'emploi:
-    // deplace la forme associe  avec -direction en parametre;
 
 
-
-//------------------------------------------------------------------ PRIVE
 protected:
-//----------------------------------------------------- Attributs protégés
-	std::map<std::string,Shape> shapes;
+	std::vector<Shape*> ShapesOnHold;
 
 
 };
 
 //----------------------------------------- Types dépendants de <DeleteAll>
 
-#endif // DELETEALL
+#endif // DELETEALL_H

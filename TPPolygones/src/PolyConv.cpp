@@ -44,24 +44,21 @@ PolyConv::~PolyConv()
 {
 }
 
-bool PolyConv::IsInShape(int const x, int const y) const
+bool PolyConv::IsInShape(Vector2D P) const
 {
-      bool c = false;
-      for (unsigned int i = 0, j = points.size() - 1 ; i < points.size(); j = i++) {
-        if (
+	bool c = false;
+	for (unsigned int i = 0, j = points.size() - 1 ; i < points.size(); j = i++) {
+		Vector2D A = points[i];
+		Vector2D B = points[j];
+		if (
 				(
-					((points[i].GetY() <= y) && (y < points[j].GetY())) ||
-					((points[j].GetY() <= y) && (y < points[i].GetY()))
+					(((A.GetY() <= P.GetY())) && (P.GetY() < B.GetY())) ||
+					(((B.GetY() <= P.GetY())) && (P.GetY() < A.GetY()))
 				) &&
-				((points[j].GetY() - points[i].GetY()) * ( points[i].GetX() - x) > (points[j].GetX() - points[i].GetX()) * (points[i].GetY() - y))
+				((B.GetY() - A.GetY()) * ( A.GetX() - P.GetX()) > (B.GetX() - A.GetX()) * (A.GetY() - P.GetY()))
 			)
 
-          c = !c;
-      }
-      return c;
-}
-
-bool PolyConv::IsInShape(Vector2D point) const
-{
-	return IsInShape(point.GetX(), point.GetY());
+			c = !c;
+	}
+	return c;
 }

@@ -15,11 +15,16 @@ class UndoRedoFunction // interface
 
 public:
 
+    /** @brief create a UndoRedoFunction
+    * @param shapeManager a pointer on the shapeManager on wich you want to do actions
+    **/
     UndoRedoFunction(ShapeManager* shapeManager = NULL);
+
     /**
     * \brief Do the action
     **/
     virtual void Do() = 0;
+
 
     /**
     * \brief Cancel the action

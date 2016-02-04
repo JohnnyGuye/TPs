@@ -30,11 +30,6 @@ bool PolyIntersect::IsInShape(Vector2D point) const
 	return true;
 }
 
-bool PolyIntersect::IsInShape(int x, int y) const
-{
-	return IsInShape(Vector2D(x,y));
-}
-
 Shape* PolyIntersect::Clone()
 {
 	return new PolyIntersect(*this);

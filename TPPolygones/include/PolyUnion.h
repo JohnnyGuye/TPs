@@ -16,7 +16,6 @@ class PolyUnion: public ShapeMultiple
 		virtual ~PolyUnion();
 
 		virtual bool IsInShape(Vector2D point) const;
-		virtual bool IsInShape(int x, int y) const;
 
 		virtual Shape* Clone();
 

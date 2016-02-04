@@ -15,7 +15,6 @@ UndoRedoFunction::UndoRedoFunction (ShapeManager* shapeManager)
 
 UndoRedoFunction::~UndoRedoFunction()
 {
-	delete shapeManager;
 }
 
 

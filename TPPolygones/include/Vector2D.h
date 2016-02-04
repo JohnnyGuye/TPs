@@ -48,6 +48,7 @@ public:
 
 	Vector2D& 		normalize();
 	double 			scalarProduct(const Vector2D & other) const;
+	bool			IsNull() const;
 
 /* ==== Methods ==== */
 

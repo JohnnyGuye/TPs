@@ -16,7 +16,6 @@ class PolyIntersect: public ShapeMultiple
 		virtual ~PolyIntersect();
 
 		virtual bool IsInShape(Vector2D point) const;
-		virtual bool IsInShape(int , int y) const;
 
 		virtual Shape* Clone();
 

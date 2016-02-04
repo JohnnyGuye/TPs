@@ -2,7 +2,7 @@
 
 using namespace std;
 
-bool ShapeManager::Answer(string s, bool isOk)
+bool ShapeManager::Answer(string const& s, bool const& isOk)
 {
 	cout << (isOk ? "OK" : "ERR") << endl;
 	cout << "#" << s << endl << endl;
@@ -16,29 +16,35 @@ ShapeManager::ShapeManager()
 
 ShapeManager::~ShapeManager()
 {
-	for(pair<string, Shape*> it : ShapeTable)
-		delete it.second;
+	Empty();
 }
 
-bool ShapeManager::IsInTable(string name)
+bool ShapeManager::IsInTable(string const& name)
 {
-	return ShapeTable.find(name) == ShapeTable.end();
+	return ShapeTable.find(name) != ShapeTable.end();
 }
 
-Shape* ShapeManager::findShape(string name)
+Shape* ShapeManager::findShape(string const& name)
 {
 	return ShapeTable.find(name)->second;
 }
 
-
 void ShapeManager::List()
 {
-	Answer("Here you have a list of all the shape loaded in you application", true);
-	for(ShapeMap::iterator it = ShapeTable.begin(); ShapeTable.end() != it; it++)
+	if(ShapeTable.begin() != ShapeTable.end())
 	{
-		cout << it->second->toString(0);
+		Answer("Here you have a list of all the shape loaded in you application", true);
+		for(ShapeMap::iterator it = ShapeTable.begin(); ShapeTable.end() != it; it++)
+		{
+			cout << it->second->toString(0);
+		}
+	}
+	else
+	{
+		Answer("Nothing to display :/");
 	}
 }
+
 bool ShapeManager::Add(Shape* shape)
 {
 	if(shape->GetType() == Shape::NOT_SHAPE)
@@ -52,7 +58,7 @@ bool ShapeManager::Add(Shape* shape)
 	}
 }
 
-bool ShapeManager::Delete(string name)
+bool ShapeManager::Delete(string const& name)
 {
 	ShapeMap::iterator shapeIt = ShapeTable.find(name);
 	if(shapeIt == ShapeTable.end())
@@ -73,7 +79,7 @@ bool ShapeManager::Empty()
 		delete it->second;
 	}
 	ShapeTable.clear();
-	return Answer("Time for a new display of skills !", true);
+	return Answer("Cleared !", true);
 }
 
 bool ShapeManager::Move(string const& name, Vector2D const& delta)
@@ -89,7 +95,37 @@ bool ShapeManager::Move(string const& name, Vector2D const& delta)
 	}
 }
 
-bool ShapeManager::Store(string fileName)
+bool ShapeManager::Hit(std::string const& name, Vector2D const& point)
+{
+	if(!IsInTable(name))
+	{
+		return Answer("Sorry, your shape is in another castle");
+	}
+	else
+	{
+		if(!findShape(name)->IsInShape(point))
+		{
+			cout << "NO" << endl;
+			return false;
+		}
+		else
+		{
+			cout << "YES" << endl;
+			return true;
+		}
+	}
+}
+
+vector<Shape*> ShapeManager::TableCopy()
+{
+	vector<Shape*> tC;
+	for(ShapeMap::iterator it = ShapeTable.begin(); ShapeTable.end() != it; it++)
+		tC.push_back(it->second->Clone());
+	return tC;
+
+}
+
+bool ShapeManager::Store(string const& fileName)
 {
 	ofstream storeFile(fileName.c_str());
 	ifstream ifile(fileName);
@@ -132,7 +168,7 @@ bool ShapeManager::Store(string fileName)
 	return Answer("The shapes are now stored in the file " + fileName,true);
 }
 
-bool ShapeManager::Load(string fileName){
+bool ShapeManager::Load(string const& fileName){
 	return Answer("The shapes have been copied into the local context",true);
 }
 

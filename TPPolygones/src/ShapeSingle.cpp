@@ -15,7 +15,6 @@ ShapeSingle::ShapeSingle(const ShapeSingle& copie)
 
 ShapeSingle::~ShapeSingle()
 {
-	//dtor
 }
 
 vector<Vector2D> ShapeSingle::GetPositions()
@@ -28,27 +27,27 @@ vector<Vector2D> ShapeSingle::GetPositions()
 
 string ShapeSingle::toString(int tab) const
 {
-	string s = Shape::toString(tab) + " is a ";
+	string s = Shape::toString(tab) + " : ";
 	string space = "";
 	for(int i = 0; i < tab; i++)
 		space += " ";
 	switch(shapeType)
 	{
 		case Shape::RECTANGLE:
-			s+="rectangle";
+			s+="\trectangle";
 			break;
 		case Shape::POLYCONV:
-			s+="convex polygon";
+			s+="\tconvex polygon";
 			break;
 		case Shape::SEGMENT:
-			s+="segment";
+			s+="\tsegment";
 			break;
 		case Shape::NOT_SHAPE:
 		default:
-			s += "shape";
+			s += "\tshape";
 	}
-	s += " using these points: \r\n";
+	s += "\toffset : " + offset.toString() + "\r\n";
 	for(Vector2D vect : points)
-		s += space + "|" + vect.toString() + "\r\n";
+		s += space + "| " + vect.toString() + "\r\n";
 	return s;
 }

@@ -21,24 +21,21 @@ ShapeMultiple::~ShapeMultiple()
 
 string ShapeMultiple::toString(int tab) const
 {
-	string s = Shape::toString() + " is a ";
-	string space = "";
-	for(int i = 0; i < tab; i++)
-		space += " ";
+	string s = Shape::toString() + " : ";
 	switch(shapeType)
 	{
 		case Shape::REUSHAPE:
-			s+="complex union form";
+			s+="\tunion";
 			break;
 		case Shape::INTERSHAPE:
-			s+="complex intersection form";
+			s+="\tintersection";
 			break;
 		case Shape::NOT_SHAPE:
 		default:
-			s += "shape";
+			s += "\tshape";
 	}
-	s += " using these shapes: \r\n";
+	s += "\toffset : " + offset.toString() + "\r\n";
 	for(Shape* sh : shapes)
-		s += space + sh->toString(tab+1) + "\r\n";
+		s += sh->toString(tab+1) + "\r\n";
 	return s;
 }

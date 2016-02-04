@@ -103,7 +103,7 @@ void History::Read()
 				try
 				{
 					vector<Vector2D> points;
-					if(tokens.size()%2 != 6)	throw exception();
+					if(tokens.size() != 6)	throw exception();
 
 					for(unsigned int i = 2; i < tokens.size(); i+=2)
 						points.push_back(Vector2D(my_stoi(tokens[i]),my_stoi(tokens[i+1])));
@@ -154,7 +154,7 @@ void History::Read()
 				{
 					vector<string> notInTable;
 					for(unsigned int i = 2; i < tokens.size(); i++)
-						if(Manager->IsInTable(tokens[i]))
+						if(!Manager->IsInTable(tokens[i]))
 							notInTable.push_back(tokens[i]);
 
 					if(notInTable.size() == 0)
@@ -191,7 +191,7 @@ void History::Read()
 				{
 					vector<string> notInTable;
 					for(unsigned int i = 2; i < tokens.size(); i++)
-						if(Manager->IsInTable(tokens[i]))
+						if(!Manager->IsInTable(tokens[i]))
 							notInTable.push_back(tokens[i]);
 
 					if(notInTable.size() == 0)
@@ -226,8 +226,11 @@ void History::Read()
 			{
 				try
 				{
-					if(Manager->Delete(tokens[1]))
+					if(Manager->IsInTable(tokens[1]))
+					{
 						Do(new Delete(Manager->findShape(tokens[1])->Clone(), Manager));
+						Manager->Delete(tokens[1]);
+					}
 				}
 				catch(exception e)
 				{
@@ -237,6 +240,7 @@ void History::Read()
 			}
 			else if(cmd == "CLEAR")
 			{
+				Do(new DeleteAll(Manager));
 				Manager->Empty();
 			}
 			else if(cmd == "MOVE")//MOVE OFFSET
@@ -260,20 +264,11 @@ void History::Read()
 			{
 				try
 				{
+					if(tokens.size() != 4)	throw exception();
 					string name = tokens[1];
 					Vector2D point(my_stoi(tokens[2]),my_stoi(tokens[3]));
 
-					if(!Manager->IsInTable(name))
-					{
-						Manager->Answer("Sorry, your shape is in another castle");
-					}
-					else
-					{
-						if(Manager->findShape(name)->IsInShape(point))
-							Manager->Answer("This point isn't in the shape");
-						else
-							Manager->Answer("The point " + point.toString() + " is in the shape " + name, true);
-					}
+					Manager->Hit(name, point);
 				}
 				catch(exception e)
 				{
@@ -293,9 +288,23 @@ void History::Read()
 			{
 				Redo();
 			}
-			else
+			else if(cmd != "EXIT")
 			{
-
+				cout << "New into this ? Here is the help : " << endl;
+				cout << " - EXIT : end the program" << endl
+					<< " - S [name] x y x' y' : create a segment beginning in x,y ending in x',y' " << endl
+					<< " - R [name] x y x' y' : create a rectangle with top left corner x,y  end bottom right corner  in x',y' " << endl
+					<< " - PC [name] x0 y0 x1 y1 ... xn yn : create a convex polygon with the following points " << endl
+					<< " - OR [name] <name0> <name1> ... <namen> : create an union of these shapes" << endl
+					<< " - OI [name] <name0> <name1> ... <namen> : create an intersection of these shapes" << endl
+					<< " - LIST : list the shapes storred" << endl
+					<< " - CLEAR : clear all shapes" << endl
+					<< " - LOAD <fileName> : load shapes from a file" << endl
+					<< " - SAVE <fileName> : store all shapes in a file" << endl
+					<< " - DELETE <name> : delete a shape " << endl
+					<< " - UNDO/REDO : rewind or forward in timeline of program (20 actions max)" << endl
+					<< " - HIT [name] x y : verify if the point is in the shape " << endl
+					<< endl;
 			}
 		}
 	}while(line != "EXIT");//GET OUT OF THERE

@@ -16,7 +16,7 @@ class ShapeMultiple: public Shape
 		virtual std::string toString(int tab = -1) const;
 
 		virtual bool IsInShape(Vector2D point) const = 0;
-		virtual bool IsInShape(int x, int y) const = 0;
+
 		virtual Shape* Clone() = 0;
 	protected:
 		std::vector<Shape*> shapes;
