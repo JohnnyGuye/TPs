@@ -51,3 +51,33 @@ string ShapeSingle::toString(int tab) const
 		s += space + "| " + vect.toString() + "\r\n";
 	return s;
 }
+
+
+string ShapeSingle::GetPersistence() const
+{
+	string s ="";
+	switch(shapeType)
+	{
+		case Shape::RECTANGLE:
+			s+="R "+name;
+			break;
+		case Shape::POLYCONV:
+			s+="PC "+name;
+			break;
+		case Shape::SEGMENT:
+			s+="S "+name;
+			break;
+		case Shape::NOT_SHAPE:
+		default:
+			s += "";
+	}
+    for(Vector2D vect :points)
+    {
+        int px = vect.GetX() + offset.GetX();
+        int py = vect.GetY() + offset.GetY();
+        s+=" "+px;
+        s+=" "+py;
+
+    }
+	return s;
+}

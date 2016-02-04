@@ -27,6 +27,7 @@ class Shape
 		std::string GetName() const;
 
 		virtual std::string toString(int tab = -1) const;
+		virtual std::string GetPersistence() const;
 
 		Shape(std::string name = "", int shapeType = NOT_SHAPE);
 		Shape(const Shape& copie);

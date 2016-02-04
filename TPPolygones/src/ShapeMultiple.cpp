@@ -39,3 +39,24 @@ string ShapeMultiple::toString(int tab) const
 		s += sh->toString(tab+1) + "\r\n";
 	return s;
 }
+
+
+string ShapeMultiple::GetPersistence() const
+{
+	string s ="";
+	switch(shapeType)
+	{
+		case Shape::REUSHAPE:
+			s+="OR "+name;
+			break;
+		case Shape::INTERSHAPE:
+			s+="OI "+name;
+			break;
+		case Shape::NOT_SHAPE:
+		default:
+			s += "";
+	}
+	for(Shape* sh : shapes)
+		s += " "+sh->GetName();
+	return s;
+}
