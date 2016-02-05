@@ -92,7 +92,7 @@ bool ShapeManager::Move(string const& name, Vector2D const& delta)
 	{
 		Vector2D offsetOld = shapeit->second->GetOffset();
 		Vector2D offsetNew = (shapeit->second->Move(delta));
-		return true;
+		return Answer(name + " has been moved from " + offsetOld.toString() + " to " + offsetNew.toString(), true );
 	}
 }
 

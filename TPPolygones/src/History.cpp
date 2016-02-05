@@ -62,6 +62,11 @@ void History::Do(UndoRedoFunction* urf)
 		delete undoDeque.back();
 		undoDeque.pop_back();
 	}
+	while(redoDeque.size() > 0)
+	{
+		delete redoDeque.back();
+		redoDeque.pop_back();
+	}
 }
 
 void History::Add(Shape* shape)
@@ -74,6 +79,7 @@ void History::Add(Shape* shape)
 	else
 		delete shape;
 }
+
 void History::Read(istream& is)
 {
 	string line;
