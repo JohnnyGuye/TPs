@@ -6,22 +6,23 @@
 *************************************************************************/
 
 //---------- Interface de la classe <LoadAll.h> (fichier LoadAll.h) ------
-#if ! defined ( LOADALL )
-#define LOADALL
+#if ! defined ( LOADALLSHAPES )
+#define LOADALLSHAPES
 
 //--------------------------------------------------- Interfaces utilisées
-#include "Shape.h"
+#include "UndoRedoFunction.h"
+#include <vector>
 
-class LoadAll : public UndoRedoFunction
+class LoadAllShapes : public UndoRedoFunction
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
 //----------------------------------------------------- Méthodes publiques
 
-    LoadAll (ShapeManager* shapeManager = nullptr);
+    LoadAllShapes ( ShapeManager* shapeManager = nullptr, std::vector<Shape*> shapes = {});
 
-    virtual ~LoadAll ( );
+    virtual ~LoadAllShapes ( );
 
     /** Delete all the shapes **/
     virtual void Do();
@@ -32,7 +33,7 @@ public:
 //------------------------------------------------------------------ PRIVE
 protected:
 //----------------------------------------------------- Attributs protégés
-	std::map<string,Shape> shapes;
+	std::vector<Shape*> ShapesOnHold;
 
 
 };

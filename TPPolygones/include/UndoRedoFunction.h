@@ -25,7 +25,6 @@ public:
     **/
     virtual void Do() = 0;
 
-
     /**
     * \brief Cancel the action
     */

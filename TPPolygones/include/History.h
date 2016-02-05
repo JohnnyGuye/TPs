@@ -21,13 +21,15 @@ class History
 public:
 //----------------------------------------------------- Méthodes publiques
 
+	static int stackindex;
+
 	History();
     virtual ~History ( );
 
 	/**
 	* \brief Read inputs and try to do things
 	*/
-	virtual void Read();
+	virtual void Read(std::istream& is = std::cin);
 
 protected:
 	/**
@@ -46,16 +48,38 @@ protected:
 	*/
     virtual void Redo();
 
+    /**
+	* @brief Load a file in the program
+	* @return true if loaded, false otherwise
+	**/
+	virtual bool Load(std::string const& fileName);
+
+	/**
+	* @brief Store all shapes in a file
+	* @return true if stored, false otherwise
+	**/
+	virtual bool Store(std::string const& fileName);
+
+	/**
+	* @brief used for recursive course of the file for loading
+	* @return the created Shapes
+	**/
+	virtual std::vector<Shape*> Stack(std::ifstream& is);
+
 protected:
 
+	/** maximum number of undo (or redo) in a row **/
 	int const STACK_MAX = 20;
 
+	/** pile undo each action changing the state
+	* of the Manager is stored in there and you can cancel it **/
 	std::deque<UndoRedoFunction*> undoDeque;
+
+	/** redo the last cancelled action **/
 	std::deque<UndoRedoFunction*> redoDeque;
 
+	/** The shape manager **/
 	ShapeManager* Manager;
-
-
 };
 
 #endif // LOADALL

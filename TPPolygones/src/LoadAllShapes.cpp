@@ -7,27 +7,30 @@
 
 //---------- Réalisation de la classe <LoadAll> (fichier LoadAll.cpp) --
 
-#include "LoadAll.h"
+#include "LoadAllShapes.h"
 
-LoadAll::LoadAll (ShapeManager* shapeManager)
+using namespace std;
+
+LoadAllShapes::LoadAllShapes (ShapeManager* shapeManager, vector<Shape*> shapes)
 : UndoRedoFunction(shapeManager)
 {
-	ShapesOnHold = shapeManager->TableCopy();
-} //----- Fin de Delete
+	for(Shape* sh : shapes)
+		ShapesOnHold.push_back(sh);
+}
 
-LoadAll::~LoadAll ( )
+LoadAllShapes::~LoadAllShapes ( )
 {
 	for(Shape* sh : ShapesOnHold)
 		delete sh;
 }
 
-void LoadAll::Do()
+void LoadAllShapes::Do()
 {
 	for(Shape* sh : ShapesOnHold)
 		shapeManager->Add(sh->Clone());
 }
 
-void LoadAll::Cancel()
+void LoadAllShapes::Cancel()
 {
 	for(Shape* sh : ShapesOnHold)
 		shapeManager->Delete(sh->GetName());

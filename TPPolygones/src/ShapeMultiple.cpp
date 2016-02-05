@@ -21,7 +21,7 @@ ShapeMultiple::~ShapeMultiple()
 
 string ShapeMultiple::toString(int tab) const
 {
-	string s = Shape::toString() + " : ";
+	string s = Shape::toString(tab) + " : ";
 	switch(shapeType)
 	{
 		case Shape::REUSHAPE:
@@ -38,4 +38,15 @@ string ShapeMultiple::toString(int tab) const
 	for(Shape* sh : shapes)
 		s += sh->toString(tab+1) + "\r\n";
 	return s;
+}
+
+string ShapeMultiple::toStore() const
+{
+	ostringstream ss;
+	ss << Shape::toStore() << endl
+		<< "{" << endl;
+	for(Shape* sh : shapes)
+		ss << sh->toStore();
+	ss << "}" << endl;
+	return ss.str();
 }

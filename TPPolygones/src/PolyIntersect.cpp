@@ -21,6 +21,8 @@ PolyIntersect::~PolyIntersect()
 
 bool PolyIntersect::IsInShape(Vector2D point) const
 {
+	if(shapes.size() == 0)
+		return false;
 	point -= offset;
 	for(Shape* sh : shapes)
 	{

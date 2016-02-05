@@ -3,10 +3,12 @@
 #include "Create.h"
 #include "Move.h"
 #include "Delete.h"
-#include "LoadAll.h"
+#include "LoadAllShapes.h"
 #include "DeleteAll.h"
 
 using namespace std;
+
+int History::stackindex = 0;
 
 History::History()
 {
@@ -63,13 +65,13 @@ void History::Do(UndoRedoFunction* urf)
 
 }
 
-void History::Read()
+void History::Read(istream& is)
 {
 	string line;
 	do
 	{
 		vector<string> tokens;
-		getline(cin, line);
+		getline(is, line);
 		split(line, tokens);
 
 		if(tokens.size() > 0)
@@ -288,6 +290,30 @@ void History::Read()
 			{
 				Redo();
 			}
+			else if(cmd == "LOAD")
+			{
+				try
+				{
+					if(tokens.size() != 2)	throw exception();
+					Load(tokens[1]);
+				}
+				catch(exception e)
+				{
+					Manager->Answer("Invalid syntax.");
+				}
+			}
+			else if(cmd == "STORE")
+			{
+				try
+				{
+					if(tokens.size() != 2)	throw exception();
+					Store(tokens[1]);
+				}
+				catch(exception e)
+				{
+					Manager->Answer("Invalid syntax.");
+				}
+			}
 			else if(cmd != "EXIT")
 			{
 				cout << "New into this ? Here is the help : " << endl;
@@ -308,4 +334,104 @@ void History::Read()
 			}
 		}
 	}while(line != "EXIT");//GET OUT OF THERE
+}
+
+vector<Shape*> History::Stack(ifstream& is)
+{
+
+	vector<Shape*> shapes;
+	vector<string> tokens;
+	string line;
+
+	while(getline(is, line))
+	{
+		split(line, tokens);
+		if(tokens.size() == 0 || tokens[0] == "}")	break;
+
+		if(tokens.size() >= 4)
+		{
+			try
+			{
+				string 		name = tokens[0];
+				int 		type = my_stoi(tokens[1]);
+				Vector2D 	offset(my_stoi(tokens[2]), my_stoi(tokens[3]));
+
+				if(type == Shape::SEGMENT || type == Shape::RECTANGLE)
+				{
+					if(tokens.size() != 8) throw exception();
+
+					Vector2D A(my_stoi(tokens[4]), my_stoi(tokens[5]));
+					Vector2D B(my_stoi(tokens[6]), my_stoi(tokens[7]));
+
+					if(type == Shape::SEGMENT)	shapes.push_back(new Segment(name, A, B));
+					if(type == Shape::RECTANGLE)	shapes.push_back(new Rectangle(name, A, B));
+				}
+				else if(type == Shape::POLYCONV)
+				{
+					if(tokens.size() < 8 || tokens.size()%2 == 1) throw exception();
+
+					vector<Vector2D> points;
+					for(unsigned i = 4; i < tokens.size(); i+=2)
+						points.push_back(Vector2D(my_stoi(tokens[i]), my_stoi(tokens[i+1])));
+					shapes.push_back(new PolyConv(name, points));
+				}
+				else if(type == Shape::REUSHAPE)
+				{
+					shapes.push_back(new PolyUnion(name, Stack(is)));
+				}
+				else if(type == Shape::INTERSHAPE)
+				{
+					shapes.push_back(new PolyIntersect(name, Stack(is)));
+				}
+				shapes.back()->Move(offset);
+			}
+			catch (exception e)
+			{
+				return shapes;
+			}
+		}
+	}
+	return shapes;
+}
+
+bool History::Load(string const& fileName)
+{
+	ifstream iFile("saves/"+fileName);
+	if (iFile.fail())
+	{
+		return Manager->Answer("File do not exists");
+	}
+
+	if(iFile)
+	{
+		vector<Shape*> shapes = Stack(iFile);
+
+		UndoRedoFunction* urf = new LoadAllShapes(Manager, shapes);
+		urf->Do();
+		Do(urf);
+
+		return Manager->Answer("All shapes from " + fileName + " have been loaded", true);
+	}
+	return Manager->Answer("Enable to open the file");
+
+}
+
+bool History::Store(string const& fileName)
+{
+
+	ifstream ifile("saves/"+fileName);
+	if (ifile.good())
+	{
+		return Manager->Answer("File already exists");
+	}
+
+	ofstream storeFile("saves/"+fileName);
+
+	if(storeFile)
+	{
+		for(Shape* shape : Manager->TableCopy())
+			storeFile << shape->toStore();
+		return Manager->Answer("All shapes have been stored in "+ fileName, true);
+	}
+	return Manager->Answer("Not writable");
 }

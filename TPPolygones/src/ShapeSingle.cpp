@@ -51,3 +51,12 @@ string ShapeSingle::toString(int tab) const
 		s += space + "| " + vect.toString() + "\r\n";
 	return s;
 }
+
+string ShapeSingle::toStore() const
+{
+	ostringstream ss;
+	ss << Shape::toStore();
+	for(Vector2D point : points)
+		ss << point.GetX() << " " << point.GetY() << " ";
+	return ss.str() + "\r\n";
+}

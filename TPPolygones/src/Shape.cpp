@@ -47,3 +47,10 @@ string Shape::toString(int tab) const
 		s+="+";
 	return s + name;
 }
+
+string Shape::toStore() const
+{
+	ostringstream ss;
+	ss << name << " " << shapeType << " " << (int)offset.GetX() << " " << (int)offset.GetY() << " ";
+	return ss.str();
+}

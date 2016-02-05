@@ -39,11 +39,11 @@
 	<vector>
 	<ShapeSingle.h>
 
-1454518605 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\main.cpp
+1454621231 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\main.cpp
 	<iostream>
 	<History.h>
 
-1454544796 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapemanager.h
+1454602963 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapemanager.h
 	<string>
 	<cstring>
 	<sstream>
@@ -58,10 +58,10 @@
 	<tuple>
 	<iostream>
 
-1454462692 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shape.cpp
+1454605910 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shape.cpp
 	"Shape.h"
 
-1454546147 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shape.h
+1454601021 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shape.h
 	<Vector2D.h>
 	<string>
 	<vector>
@@ -71,13 +71,13 @@
 	<iostream>
 	<sstream>
 
-1454546027 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapemanager.cpp
+1454602946 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapemanager.cpp
 	"ShapeManager.h"
 
-1454541940 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapesingle.cpp
+1454602757 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapesingle.cpp
 	"ShapeSingle.h"
 
-1454547679 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapesingle.h
+1454600631 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapesingle.h
 	<Shape.h>
 	<vector>
 	<Vector2D.h>
@@ -101,7 +101,7 @@
 	<vector>
 	<ShapeSingle.h>
 
-1454546671 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\polyconv.cpp
+1454547779 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\polyconv.cpp
 	"PolyConv.h"
 
 1454546201 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\polyconv.h
@@ -117,7 +117,7 @@
 	<PolyConv.h>
 	<vector>
 
-1454546219 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapemultiple.h
+1454600645 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\shapemultiple.h
 	<vector>
 	<Vector2D.h>
 	<Shape.h>
@@ -125,10 +125,10 @@
 1454546689 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\polyunion.cpp
 	"PolyUnion.h"
 
-1454465191 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapemultiple.cpp
+1454626786 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\shapemultiple.cpp
 	"ShapeMultiple.h"
 
-1454546683 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\polyintersect.cpp
+1454627216 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\polyintersect.cpp
 	"PolyIntersect.h"
 
 1454546201 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\polyintersect.h
@@ -155,13 +155,13 @@
 1454425323 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\delete.h
 	"UndoRedoFunction.h"
 
-1454545800 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\history.cpp
+1454626692 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\history.cpp
 	"History.h"
 	"util.h"
 	"Create.h"
 	"Move.h"
 	"Delete.h"
-	"LoadAll.h"
+	"LoadAllShapes.h"
 	"DeleteAll.h"
 
 1454542421 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\undoredofunction.cpp
@@ -173,7 +173,7 @@
 1454426506 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\move.h
 	"UndoRedoFunction.h"
 
-1454542254 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\history.h
+1454626406 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\history.h
 	"UndoRedoFunction.h"
 	"deque"
 
@@ -185,8 +185,9 @@
 1454430763 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\util.cpp
 	"util.h"
 
-1454421546 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\loadall.h
-	"Shape.h"
+1454607674 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\loadall.h
+	"UndoRedoFunction.h"
+	<vector>
 
 1454543915 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\deleteall.h
 	"UndoRedoFunction.h"
@@ -194,4 +195,14 @@
 
 1454543921 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\deleteall.cpp
 	"DeleteAll.h"
+
+1454607731 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\loadall.cpp
+	"LoadAll.h"
+
+1454618051 source:d:\programmation\c++ et c\tpc++4duet\tppolygones\src\loadallshapes.cpp
+	"LoadAllShapes.h"
+
+1454616634 d:\programmation\c++ et c\tpc++4duet\tppolygones\include\loadallshapes.h
+	"UndoRedoFunction.h"
+	<vector>
 

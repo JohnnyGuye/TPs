@@ -17,6 +17,9 @@ class ShapeSingle : public Shape
 		/** @brief return a string that describe the shape */
 		virtual std::string toString(int tab = -1) const;
 
+		/** @brief string computed for an easy storage **/
+		virtual std::string toStore() const;
+
 		/** @brief verify if a point is in the shape
 		* @return true if in shape, false if not
 		**/

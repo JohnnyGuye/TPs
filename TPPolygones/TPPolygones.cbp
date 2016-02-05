@@ -37,7 +37,8 @@
 		<Unit filename="include/Create.h" />
 		<Unit filename="include/Delete.h" />
 		<Unit filename="include/DeleteAll.h" />
-		<Unit filename="include/LoadAll.h" />
+		<Unit filename="include/History.h" />
+		<Unit filename="include/LoadAllShapes.h" />
 		<Unit filename="include/Move.h" />
 		<Unit filename="include/PolyConv.h" />
 		<Unit filename="include/PolyIntersect.h" />
@@ -50,7 +51,14 @@
 		<Unit filename="include/ShapeSingle.h" />
 		<Unit filename="include/UndoRedoFunction.h" />
 		<Unit filename="include/Vector2D.h" />
+		<Unit filename="include/util.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Create.cpp" />
+		<Unit filename="src/Delete.cpp" />
+		<Unit filename="src/DeleteAll.cpp" />
+		<Unit filename="src/History.cpp" />
+		<Unit filename="src/LoadAllShapes.cpp" />
+		<Unit filename="src/Move.cpp" />
 		<Unit filename="src/PolyConv.cpp" />
 		<Unit filename="src/PolyIntersect.cpp" />
 		<Unit filename="src/PolyUnion.cpp" />
@@ -60,7 +68,9 @@
 		<Unit filename="src/ShapeManager.cpp" />
 		<Unit filename="src/ShapeMultiple.cpp" />
 		<Unit filename="src/ShapeSingle.cpp" />
+		<Unit filename="src/UndoRedoFunction.cpp" />
 		<Unit filename="src/Vector2D.cpp" />
+		<Unit filename="src/util.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

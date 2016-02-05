@@ -52,18 +52,6 @@ class ShapeManager
 		**/
 		bool Move(std::string const& name, Vector2D const& vect);
 
-		/** @brief Store the current state of the program in a file
-		** @param fileName the name of the file
-		** @return true if successfully stored
-		**/
-		bool Store(std::string const& fileName);
-
-		/** @brief Restore an old state of the program from a file
-		** @param fileName the name of the file
-		** @return true if successfully reloaded
-		**/
-		bool Load(std::string const& fileName);
-
 		/** @brief Verify if the point is in the shape
 		*
 		* @param name the name of the shape
