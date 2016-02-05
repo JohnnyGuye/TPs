@@ -5,7 +5,8 @@ using namespace std;
 bool ShapeManager::Answer(string const& s, bool const& isOk)
 {
 	cout << (isOk ? "OK" : "ERR") << endl;
-	cout << "#" << s << endl << endl;
+	if(s != "")
+		cout << "#" << s << endl << endl;
 	return isOk;
 }
 
@@ -54,7 +55,7 @@ bool ShapeManager::Add(Shape* shape)
 	else
 	{
 		ShapeTable.insert(pair<string,Shape*>(shape->GetName(), shape));
-		return Answer("New baby called " + shape->GetName() + " is born !", true);
+		return true;
 	}
 }
 
@@ -67,7 +68,7 @@ bool ShapeManager::Delete(string const& name)
 	{
 		delete shapeIt->second;
 		ShapeTable.erase(name);
-		return Answer("The shape " + name + " has been successfully deleted", true);
+		return true;
 	}
 }
 
@@ -79,7 +80,7 @@ bool ShapeManager::Empty()
 		delete it->second;
 	}
 	ShapeTable.clear();
-	return Answer("Cleared !", true);
+	return true;
 }
 
 bool ShapeManager::Move(string const& name, Vector2D const& delta)
@@ -91,7 +92,7 @@ bool ShapeManager::Move(string const& name, Vector2D const& delta)
 	{
 		Vector2D offsetOld = shapeit->second->GetOffset();
 		Vector2D offsetNew = (shapeit->second->Move(delta));
-		return Answer(name + " has been moved from " + offsetOld.toString() + " to " + offsetNew.toString(), true );
+		return true;
 	}
 }
 

@@ -62,9 +62,18 @@ void History::Do(UndoRedoFunction* urf)
 		delete undoDeque.back();
 		undoDeque.pop_back();
 	}
-
 }
 
+void History::Add(Shape* shape)
+{
+	if(Manager->Add(shape))
+	{
+		Manager->Answer("New baby called " + shape->GetName() + " is born !", true);
+		Do(new Create(shape, Manager));
+	}
+	else
+		delete shape;
+}
 void History::Read(istream& is)
 {
 	string line;
@@ -78,7 +87,7 @@ void History::Read(istream& is)
 		{
 			string cmd = tokens[0];
 
-			if(cmd == "S")//SEGMENT
+			if(cmd == "S")// STRAIGHT LINE
 			{
 				try
 				{
@@ -89,10 +98,7 @@ void History::Read(istream& is)
 						points.push_back(Vector2D(my_stoi(tokens[i]),my_stoi(tokens[i+1])));
 
 					Segment* seg = new Segment(tokens[1], points[0], points[1]);
-					if(Manager->Add(seg))
-						Do(new Create(seg, Manager));
-					else
-						delete seg;
+					Add(seg);
 				}
 				catch(exception e)
 				{
@@ -100,7 +106,7 @@ void History::Read(istream& is)
 					cout << "S name x y x' y'";
 				}
 			}
-			else if(cmd == "R")//RECTANGLE
+			else if(cmd == "R")// FOUR RIGHT-ANGLED CORNER
 			{
 				try
 				{
@@ -111,10 +117,7 @@ void History::Read(istream& is)
 						points.push_back(Vector2D(my_stoi(tokens[i]),my_stoi(tokens[i+1])));
 
 					Rectangle* rec = new Rectangle(tokens[1], points[0], points[1]);
-					if(Manager->Add(rec))
-						Do(new Create(rec, Manager));
-					else
-						delete rec;
+					Add(rec);
 				}
 				catch(exception e)
 				{
@@ -122,7 +125,7 @@ void History::Read(istream& is)
 					cout << "R name x y x' y'";
 				}
 			}
-			else if(cmd == "PC")
+			else if(cmd == "PC")// STAR ? WHAT DOES IT MEAN ?
 			{
 				try
 				{
@@ -134,10 +137,7 @@ void History::Read(istream& is)
 					if(PolyConv::VerifyConvexity(points))
 					{
 						PolyConv* pc = new PolyConv(tokens[1], points);
-						if(Manager->Add(pc))
-							Do(new Create (pc, Manager));
-						else
-							delete pc;
+						Add(pc);
 					}
 					else
 					{
@@ -150,7 +150,7 @@ void History::Read(istream& is)
 					cout << "PC name x0 y0 x1 y1 ... xn yn";
 				}
 			}
-			else if(cmd == "OI")
+			else if(cmd == "OI")// JUST KEEP THE COMMON THINGS
 			{
 				try
 				{
@@ -166,10 +166,7 @@ void History::Read(istream& is)
 							shapes1.push_back(Manager->findShape(tokens[i])->Clone());
 
 						PolyIntersect* pi = new PolyIntersect(tokens[1], shapes1);
-						if(Manager->Add(pi))
-							Do( new Create(pi, Manager));
-						else
-							delete pi;
+						Add(pi);
 
 					}
 					else
@@ -187,7 +184,7 @@ void History::Read(istream& is)
 					Manager->Answer("OI name name0 name1 ... namen");
 				}
 			}
-			else if(cmd == "OR")
+			else if(cmd == "OR")// UNION IS ALWAYS BETTER
 			{
 				try
 				{
@@ -203,10 +200,7 @@ void History::Read(istream& is)
 							shapes1.push_back(Manager->findShape(tokens[i])->Clone());
 
 						PolyUnion* pu = new PolyUnion(tokens[1], shapes1);
-						if(Manager->Add(pu))
-							Do( new Create(pu, Manager));
-						else
-							delete pu;
+						Add(pu);
 
 					}
 					else
@@ -224,7 +218,7 @@ void History::Read(istream& is)
 					Manager->Answer("OI name name0 name1 ... namen");
 				}
 			}
-			else if(cmd == "DELETE")//BYE BYE SHAPE !
+			else if(cmd == "DELETE")// BYE BYE SHAPE !
 			{
 				try
 				{
@@ -232,6 +226,7 @@ void History::Read(istream& is)
 					{
 						Do(new Delete(Manager->findShape(tokens[1])->Clone(), Manager));
 						Manager->Delete(tokens[1]);
+						Manager->Answer("The shape " + tokens[1] + " has been successfully deleted", true);
 					}
 				}
 				catch(exception e)
@@ -240,21 +235,25 @@ void History::Read(istream& is)
 					Manager->Answer("DELETE name");
 				}
 			}
-			else if(cmd == "CLEAR")
+			else if(cmd == "CLEAR")// BACK TO THE BASE
 			{
 				Do(new DeleteAll(Manager));
-				Manager->Empty();
+				if(Manager->Empty())	Manager->Answer("Cleared !", true);
 			}
-			else if(cmd == "MOVE")//MOVE OFFSET
+			else if(cmd == "MOVE")// MOVE OFFSET
 			{
 				try
 				{
 					if(tokens.size() != 4)	throw exception();
 					Vector2D movement = Vector2D(my_stoi(tokens[2]), my_stoi(tokens[3]));
+					Shape* shape;
 
 					if(Manager->Move(tokens[1], movement))
-						Do(new Move(Manager->findShape(tokens[1])->Clone(), movement, Manager));
-
+					{
+						shape = Manager->findShape(tokens[1])->Clone();
+						Do(new Move(shape, movement, Manager));
+						Manager->Answer(tokens[1] + " has been moved from " + (shape->GetOffset() - movement).toString() + " to " + shape->GetOffset().toString(), true );
+					}
 				}
 				catch(exception e)
 				{
@@ -262,7 +261,7 @@ void History::Read(istream& is)
 					Manager->Answer("MOVE name dx dy");
 				}
 			}
-			else if(cmd == "HIT")//IS IN SHAPE ?
+			else if(cmd == "HIT")// IS IN SHAPE ?
 			{
 				try
 				{
@@ -282,15 +281,15 @@ void History::Read(istream& is)
 			{
 				Manager->List();
 			}
-			else if(cmd == "UNDO")
+			else if(cmd == "UNDO")// LET'S START AGAIN THIS ACTION
 			{
 				Undo();
 			}
-			else if(cmd == "REDO")
+			else if(cmd == "REDO")// COME BACK TO THE FUTURE
 			{
 				Redo();
 			}
-			else if(cmd == "LOAD")
+			else if(cmd == "LOAD")// GUESS I WORKED HARD IN A PREVIOUS SESSION
 			{
 				try
 				{
@@ -302,7 +301,7 @@ void History::Read(istream& is)
 					Manager->Answer("Invalid syntax.");
 				}
 			}
-			else if(cmd == "STORE")
+			else if(cmd == "STORE" || cmd == "SAVE")// DON'T WANT A WASTE OF TIME
 			{
 				try
 				{
@@ -314,7 +313,7 @@ void History::Read(istream& is)
 					Manager->Answer("Invalid syntax.");
 				}
 			}
-			else if(cmd != "EXIT")
+			else if(cmd != "EXIT")// HINTS !
 			{
 				cout << "New into this ? Here is the help : " << endl;
 				cout << " - EXIT : end the program" << endl

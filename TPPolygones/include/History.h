@@ -49,6 +49,11 @@ protected:
     virtual void Redo();
 
     /**
+    * @brief Add a shape and its follow in undo/redo
+    */
+    virtual void Add(Shape* shape);
+
+    /**
 	* @brief Load a file in the program
 	* @return true if loaded, false otherwise
 	**/
