@@ -23,8 +23,8 @@ OBJ = $(REAL:.cpp=.o)
 TEMP = $(INT:.h=.h~) $(REAL:.cpp=.cpp~) $(wildcard *~)
 
 EXE = Parking
-LIBS = -lm -ltp
-#-lncurses -ltcl
+MAIN = Mere
+LIBS = -lm -lncurses -ltcl -ltp
 LIBPATH = -Llibs
 INCPATH =# -I nothing
 
@@ -53,22 +53,23 @@ testdir = ../tests
 # ===================== REGLES ==========================
 # ==== PATTERNS ====
 
-all : $(OBJ) main.o
+all : $(OBJ) $(MAIN).o
 	$(ECHO) "\n====/\=========_/'°*°'\_=========/\===="
 	$(ECHO) "=== Compilation de l'executable <$<>"
-	$(EDL) -o $(EXE) $(LIBPATH) $(OBJ) main.o $(LIBS)
+	$(EDL) -o $(EXE) $(LIBPATH) $(OBJ) $(LIBS)
 	$(COPY) $(EXE) $(testdir)
 	
 # ==== CREATION ====
 
-main.o : main.cpp
+$(MAIN).o : $(MAIN).cpp GestClav.o
 Heure.o : Heure.h
 Menu.o : Menu.h
 Outils.o : Outils.h
+GestClav.o : GestClav.cpp Menu.h
 
 # ==== REGLES DE LAUNCH ====
 
-runLeach : all
+runLeak : all
 	$(ECHO) "\n->>>>>>> Lancement du programme (with leak test) <<<<<<<<-"
 	valgrind ./$(EXE)
 
@@ -78,10 +79,10 @@ run : all
 
 # ==== REGLES D'EFFACEMENT ====
 oClean :
-	$(RM) $(RMFLAGS) $(OBJ) main.o test.o core
+	$(RM) $(RMFLAGS) $(OBJ) $(MAIN).o test.o core
 
 clean :
-	$(RM) $(RMFLAGS) $(EXE) $(OBJ) main.o test.o $(TEMP) core
+	$(RM) $(RMFLAGS) $(EXE) $(OBJ) $(MAIN).o test.o $(TEMP) core
 
 mrproper :
 	$(RM) $(RMFLAGS) $(EXE) core
