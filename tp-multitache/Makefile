@@ -24,8 +24,11 @@ TEMP = $(INT:.h=.h~) $(REAL:.cpp=.cpp~) $(wildcard *~)
 
 EXE = Parking
 MAIN = Mere
-LIBS = -lm -lncurses -ltcl -ltp
+#LIBS = -lm -ltp -lncurses -ltcl 
+#pour Johnny
+LIBS = -lm -ltp -lncurses -ltcl8.5
 LIBPATH = -Llibs
+#LIBPATH = -Llibs
 INCPATH =# -I nothing
 
 #-------------------------------------------- Directories

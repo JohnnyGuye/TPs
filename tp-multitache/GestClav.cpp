@@ -15,5 +15,5 @@ void Commande(char code,unsigned int valeur)
 
 void ClavManager()
 {
-    Menu();
+    //Menu();
 }

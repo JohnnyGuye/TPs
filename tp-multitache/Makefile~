@@ -24,8 +24,10 @@ TEMP = $(INT:.h=.h~) $(REAL:.cpp=.cpp~) $(wildcard *~)
 
 EXE = Parking
 MAIN = Mere
-LIBS = -lm -lncurses -ltcl -ltp
+#LIBS = -lm -ltp -lncurses -ltcl 
+LIBS = -lm -ltp -lncurses -ltcl8.5
 LIBPATH = -Llibs
+#LIBPATH = -Llibs
 INCPATH =# -I nothing
 
 #-------------------------------------------- Directories
@@ -74,8 +76,6 @@ runLeak : all
 	valgrind ./$(EXE)
 
 run : all
-	ps
-	ipcs
 	$(ECHO) "\n->>>>>>> Lancement du programme <<<<<<<<-"
 	./$(EXE)
 
