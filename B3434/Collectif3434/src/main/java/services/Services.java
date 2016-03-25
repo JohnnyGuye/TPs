@@ -44,33 +44,49 @@ public class Services {
     
     // ==== Services métier ====
     // === Adhérent ===
-    public static boolean addAdherent(Adherent adherent){
+    //S'inscrire
+    public static Long register(Adherent adherent){
         JpaUtil.creerEntityManager();
-        JpaUtil.ouvrirTransaction();
-        boolean ok = true;
         
-        try{
-            AdherentDao adhDao = new AdherentDao();
+        
+        AdherentDao adhDao = new AdherentDao();
+        //verifie que l'adresse mail n'est pas encore utilise
+        try {
+            if(adhDao.findByMail(adherent.getMail()).isEmpty()){
+                return null;
+            }
+        } catch (Throwable ex) {
+            Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        try{  
+            JpaUtil.ouvrirTransaction();         
             adhDao.create(adherent);
-        }catch(Exception e){
+            JpaUtil.validerTransaction();
+        }catch(Exception e){JpaUtil.validerTransaction();
             e.printStackTrace();
-            ok = false;
         }catch (Throwable ex){
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-            ok = false;
         }finally{
-            JpaUtil.validerTransaction();
             JpaUtil.fermerEntityManager();  
         }
         
-        return ok;  
+        return adherent.getId();  
     }
     
-    public static List<Activite> selectAllAdherents(){
-        List <Activite> adherents;       
-        JpaUtil.creerEntityManager();
-        Query query = JpaUtil.request("select a from Activite a");
-        adherents = query.getResultList();
+    /**
+     * Récupère la liste de tout les adhérents
+     * @return
+     * @throws Throwable 
+     */
+    public static List<Adherent> selectAllAdherents() throws Throwable{          
+        JpaUtil.creerEntityManager(); 
+        
+        AdherentDao adhDao = new AdherentDao();
+        
+        List <Adherent> adherents; 
+        adherents = adhDao.findAll();
+        
         JpaUtil.fermerEntityManager();
         return adherents;
     }
@@ -81,13 +97,24 @@ public class Services {
      * @param surname nom
      * @return List contenant les adherents trouves
      */
-    public static List<Adherent> selectAdherentsByName(String name, String surname){
-        List <Adherent> adherent;     
-        JpaUtil.creerEntityManager();
-        Query query = JpaUtil.request("select a from Adherent a where a.prenom=\"" + name + "\" AND a.nom=\"" + surname + "\"" );
-        adherent = query.getResultList();
+    public static List<Adherent> selectAdherentsByName(String name, String surname) throws Throwable{
+        JpaUtil.creerEntityManager(); 
+        
+        AdherentDao adhDao = new AdherentDao();
+        
+        List <Adherent> adherents; 
+        adherents = adhDao.findByName(name,surname);
+        
         JpaUtil.fermerEntityManager();
-        return adherent;
+        return adherents;
+    }
+    
+    public static boolean identification(String mail, String mdp) throws Throwable{
+        JpaUtil.creerEntityManager();
+        AdherentDao adhDao = new AdherentDao();
+        boolean b = adhDao.authentication(mail,mdp);
+        JpaUtil.fermerEntityManager();
+        return b;
     }
  
     // === Activté ===
@@ -124,12 +151,14 @@ public class Services {
      * @return la liste de toutes les activites
      */
     public static List<Activite> selectAllActivities(){
-        List <Activite> activites;       
-        JpaUtil.creerEntityManager();
-        Query query = JpaUtil.request("select a from Activite a");
-        activites = query.getResultList();
-        JpaUtil.fermerEntityManager();
-        return activites;
+        List <Activite> activities;       
+        try{
+            ActiviteDao evntDao = new ActiviteDao();
+            activities = evntDao.findAll();
+        } catch (Throwable e){
+            activities = new LinkedList();
+        }
+        return activities;
     }
     
     /**
@@ -203,53 +232,89 @@ public class Services {
     }
     
     // === Demande ===
-    public static boolean postDemande(Demande demande){
+    /**
+     * 
+     * @param dem
+     * @return l'id de la demande le cas ou la demande est passee
+     */
+    public static Long postDemande(Demande dem){
         JpaUtil.creerEntityManager();
-        JpaUtil.ouvrirTransaction();
-        boolean ok = true;
+        DemandeDao demDao = new DemandeDao();
         
-        try{
-            DemandeDao demDao = new DemandeDao();
-            demDao.create(demande);
+        try{    
+            JpaUtil.ouvrirTransaction();
+        
+            demDao.create(dem);
+            JpaUtil.validerTransaction();
+            
         }catch(Exception e){
             e.printStackTrace();
-            ok = false;
         }catch (Throwable ex){
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-            ok = false;
-        }finally{
-            JpaUtil.validerTransaction();
-            JpaUtil.fermerEntityManager();  
         }
         
-        createEvent(demande);
+        //Création d'évènement
         
-        return ok;
+        Activite act = dem.getActivite();
+        int nbP = act.getNbParticipants();
+        
+        EvenementDao evtDao = new EvenementDao();
+        
+        List<Demande> dems;
+        try {
+            
+            JpaUtil.ouvrirTransaction();
+            dems = demDao.findByDateAndActiviteFree(dem);
+            
+            if(dems.size() >= nbP){
+                Evenement event;
+                
+                if(act.isParEquipe()){
+                    event  = new EvenementTeam();
+                    
+                    evtDao.create(event);
+                    
+                    for(int i = 0; i < nbP; i++){
+                        Demande d = dems.remove(0);
+                        d.setEvenement(event);
+                        d.setNumeroTeam(i%2);
+
+                        demDao.update(d);
+                        
+                    }
+                }else{
+                    event  = new EvenementSolo();
+                    
+                    evtDao.create(event);
+                    
+                    for(int i = 0; i < nbP; i++){
+                        Demande d = dems.remove(0);
+                        d.setEvenement(event);
+                        d.setNumeroTeam(i);
+                        
+                        demDao.update(d);  
+                    }
+                } 
+                JpaUtil.validerTransaction();
+            }
+        } catch (Throwable ex) {
+            Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        JpaUtil.fermerEntityManager();
+        
+        return dem.getId();
     }
     
-    // === Evenement ===
+    protected static void ValidTransac(boolean ok){
+        if(ok)
+            JpaUtil.validerTransaction();
+        else
+            JpaUtil.annulerTransaction();
+    }
+   
     
-    public static boolean addEvenement(Evenement activite){
-            JpaUtil.creerEntityManager();
-            JpaUtil.ouvrirTransaction();
-            boolean ok = true;
-
-            try{
-                EvenementDao actDao = new EvenementDao();
-                actDao.create(activite);
-            }catch(Exception e){
-                e.printStackTrace();
-                ok = false;
-            }catch (Throwable ex){
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-                ok = false;
-            }finally{
-                JpaUtil.validerTransaction();
-                JpaUtil.fermerEntityManager();  
-            }
-        
-        return ok;  
-       }
+    // === Evenement ===
     
     public static List<Evenement> selectAllEvents()  {
         List <Evenement> events;       
@@ -287,53 +352,4 @@ public class Services {
         return true;
     }
     
-    protected static boolean createEvent(Demande dem){
-        JpaUtil.creerEntityManager();
-        Activite act = dem.getActivite();
-        int nbP = act.getNbParticipants();
-        
-        //Query query = JpaUtil.request("select d from Demande d where d.date=\"" 
-        //        + dem.getDate() + "\" and d.activite_id=:\"" + act.getId()+"\"");
-        Query query = JpaUtil.request("select d from Demande d where d.date=\"" 
-                + dem.getDate() + "\" and d.activite_id=:\"" + 38+"\""); 
-        List<Demande> dems = query.getResultList();
-        JpaUtil.fermerEntityManager();  
-        if(dems.size() >= nbP){
-            
-            DemandeDao demDao = new DemandeDao();
-            Evenement event;
-            
-            if(act.isParEquipe()){
-                event  = new EvenementTeam();
-                addEvenement(event);
-                for(int i = 0; i < nbP; i++){
-                    Demande d = dems.remove(0);
-                    d.setEvenement(event);
-                    d.setNumeroTeam(i%2);
-                    
-                    try{
-                        demDao.update(d);
-                    } catch (Throwable ex) {
-                        Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }else{
-                event  = new EvenementSolo();
-                addEvenement(event);
-                for(int i = 0; i < nbP; i++){
-                    Demande d = dems.remove(0);
-                    d.setEvenement(event);
-                    d.setNumeroTeam(i);
-                    
-                    try{
-                        demDao.update(d);
-                    } catch (Throwable ex) {
-                        Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            } 
-            return true;
-        }
-        return false;
-    }
 }

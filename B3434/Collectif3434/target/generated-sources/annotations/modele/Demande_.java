@@ -8,7 +8,7 @@ import modele.Activite;
 import modele.Adherent;
 import modele.Evenement;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-03-25T14:06:11")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2016-03-25T17:20:29")
 @StaticMetamodel(Demande.class)
 public class Demande_ { 
 

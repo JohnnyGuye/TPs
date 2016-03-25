@@ -5,17 +5,20 @@
  */
 package modele;
 
+import javax.persistence.Entity;
+
 /**
  *
  * @author lokumuraon
  */
+@Entity
 public class EvenementSolo extends Evenement{
 
-    public EvenementSolo(Lieu lieu) {
-        super(lieu, 0);
+    public EvenementSolo() {
+        super();
     }
-    
-    public EvenementSolo(){
-        super(0);
+
+    public EvenementSolo(Lieu lieu) {
+        super(lieu);
     }
 }
