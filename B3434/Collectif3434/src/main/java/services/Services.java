@@ -74,7 +74,13 @@ public class Services {
         JpaUtil.fermerEntityManager();
         return adherents;
     }
-    
+    /**
+     * Recherche d'adherent par nom
+     * 
+     * @param name prénom
+     * @param surname nom
+     * @return List contenant les adherents trouves
+     */
     public static List<Adherent> selectAdherentsByName(String name, String surname){
         List <Adherent> adherent;     
         JpaUtil.creerEntityManager();
@@ -89,7 +95,7 @@ public class Services {
     /**
      * Ajoute une activite au catalogue
      * @param activite l'activite à ajouter
-     * @return tru si l'activite a été ajoutee
+     * @return true si l'activite a été ajoutee
      */
     public static boolean addActivite(Activite activite){
             JpaUtil.creerEntityManager();
@@ -181,7 +187,12 @@ public class Services {
         JpaUtil.fermerEntityManager();
         return lieux;
     }
-    
+    /**
+     * Cherche les lieux par leur nom
+     * 
+     * @param name
+     * @return 
+     */
     public static List<Lieu> selectLieuxByName(String name){
         List <Lieu> lieux;     
         JpaUtil.creerEntityManager();
@@ -277,13 +288,16 @@ public class Services {
     }
     
     protected static boolean createEvent(Demande dem){
+        JpaUtil.creerEntityManager();
         Activite act = dem.getActivite();
         int nbP = act.getNbParticipants();
         
+        //Query query = JpaUtil.request("select d from Demande d where d.date=\"" 
+        //        + dem.getDate() + "\" and d.activite_id=:\"" + act.getId()+"\"");
         Query query = JpaUtil.request("select d from Demande d where d.date=\"" 
-                + dem.getDate() + "\" and d.activite_id=" + act.getId()); 
+                + dem.getDate() + "\" and d.activite_id=:\"" + 38+"\""); 
         List<Demande> dems = query.getResultList();
-        
+        JpaUtil.fermerEntityManager();  
         if(dems.size() >= nbP){
             
             DemandeDao demDao = new DemandeDao();
@@ -317,7 +331,7 @@ public class Services {
                         Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-            }
+            } 
             return true;
         }
         return false;
