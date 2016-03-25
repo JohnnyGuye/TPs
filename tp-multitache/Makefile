@@ -12,7 +12,7 @@ CD = cd
 
 EDLFLAGS = -o
 CPPFLAGS = -c
-WARNINGFLAGS = -Wall -Wextra -pedantic
+WARNINGFLAGS = #-Wall -Wextra -pedantic
 RMFLAGS = -f
 DMAP = -DMAP
 
