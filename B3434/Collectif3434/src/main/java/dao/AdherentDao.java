@@ -80,7 +80,7 @@ public class AdherentDao {
         EntityManager em = JpaUtil.obtenirEntityManager();
         List<Adherent> adherents = null;
         try {
-            Query q = em.createQuery("SELECT a FROM Adherent a WHERE a.nom=:Name and a.prenom=:Surname");
+            Query q = em.createQuery("SELECT a FROM Adherent a WHERE a.nom=:Surname and a.prenom=:Name");
             q.setParameter("Name", name);
             q.setParameter("Surname", surname);
             
@@ -93,7 +93,7 @@ public class AdherentDao {
         return adherents;
     }
     
-    public boolean authentication(String mail, String mdp) throws Throwable {
+    public boolean authentication(String mail) throws Throwable {
         EntityManager em = JpaUtil.obtenirEntityManager();
         List<Adherent> adherents = null;
         try {
@@ -108,7 +108,7 @@ public class AdherentDao {
         if(adherents.isEmpty()){
             //mail non inscrit
         }else{
-            return adherents.get(0).compare(mdp);
+            return true;
         }
         return false;
     }

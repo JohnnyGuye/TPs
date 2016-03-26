@@ -25,23 +25,25 @@ public class main {
         System.out.println("TESTS -- TESTS -- TESTS");
         
         // Test ajout adhérent
-        
-        //Adherent adh = new Adherent("Johnson", "Ben", "20 Avenue Albert Einstein, Villeurbanne", "lucas.ono1@fb.com");
+        //String mail = "b.johnson@fb.com";
+        //Adherent adh = new Adherent("Johnson", "Ben", "20 Avenue Albert Einstein, Villeurbanne", mail);
         //adh.setMdp("MomMotDePasse");
         //System.out.println(adh.compare("MomMotDePasse"));
         //Services.register(adh);
         
         try {
-            List<Adherent> adherents = Services.selectAdherentsByName("Johnny", "Guye");
+            List<Adherent> adherents = Services.selectAdherentsByName( "Ben","Johnson");
             
-            List<Activite> activites = Services.selectActivitiesByName("Babyfoot");
+            List<Activite> activites = Services.selectActivitiesByName("Baby foot");
             
-            for (Activite a : activites) {
-                System.out.println(a.toStringForUser());
-            }
+ 
+            
             
             Demande dem = new Demande(adherents.get(0), activites.get(0), JpaUtil.creerDate("27/03/2016"));
-            Services.postDemande(dem);            
+            Services.postDemande(dem);
+            
+            
+     
         } catch (Throwable ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }

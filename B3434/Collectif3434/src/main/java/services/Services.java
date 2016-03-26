@@ -52,7 +52,7 @@ public class Services {
         AdherentDao adhDao = new AdherentDao();
         //verifie que l'adresse mail n'est pas encore utilise
         try {
-            if(adhDao.findByMail(adherent.getMail()).isEmpty()){
+            if(!(adhDao.findByMail(adherent.getMail()).isEmpty())){
                 return null;
             }
         } catch (Throwable ex) {
@@ -108,11 +108,31 @@ public class Services {
         JpaUtil.fermerEntityManager();
         return adherents;
     }
-    
-    public static boolean identification(String mail, String mdp) throws Throwable{
+    /**
+     * Service utilise pour verifier qui est inscrit
+     * 
+     * @param mail
+     * @return
+     * @throws Throwable 
+     */
+    public static List<Adherent> selectAdherentByMail(String mail) throws Throwable{
+        JpaUtil.creerEntityManager();;
+        AdherentDao adhDao = new AdherentDao();
+        List<Adherent> adherent;
+        adherent = adhDao.findByMail(mail);
+        return adherent;
+    }
+    /**
+     * Identification de l'utilisateur
+     * 
+     * @param mail
+     * @return
+     * @throws Throwable 
+     */
+    public static boolean identification(String mail) throws Throwable{
         JpaUtil.creerEntityManager();
         AdherentDao adhDao = new AdherentDao();
-        boolean b = adhDao.authentication(mail,mdp);
+        boolean b = adhDao.authentication(mail);
         JpaUtil.fermerEntityManager();
         return b;
     }
