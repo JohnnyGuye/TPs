@@ -2,8 +2,8 @@
 
 # =============== VARIABLES =============================
 MAKE = @make
-EDL = g++
-COMP = g++
+EDL = g++ -std=c++11
+COMP = g++ -std=c++11
 RM = rm
 ECHO = @echo
 COPY = @cp
@@ -12,7 +12,7 @@ CD = cd
 
 EDLFLAGS = -o
 CPPFLAGS = -c
-WARNINGFLAGS = #-Wall -Wextra -pedantic
+WARNINGFLAGS = -Wall -Wextra -pedantic
 RMFLAGS = -f
 DMAP = -DMAP
 
