@@ -26,18 +26,25 @@ public class main {
         
         // Test ajout adhérent
         
-        //Adherent adh = new Adherent("Guye", "Johnny", "26 rue Flachet, 69100 Villeurbanne", "quentin.guye@insa-lyon.fr");
-        //Services.addAdherent(adh);
+        //Adherent adh = new Adherent("Johnson", "Ben", "20 Avenue Albert Einstein, Villeurbanne", "lucas.ono1@fb.com");
+        //adh.setMdp("MomMotDePasse");
+        //System.out.println(adh.compare("MomMotDePasse"));
+        //Services.register(adh);
         
-        List<Adherent> adherents = Services.selectAdherentsByName("Johnny", "Guye");
-        
-        List<Activite> activites = Services.selectActivitiesByName("Babyfoot");
-        
-        for(Activite a : activites){
-            System.out.println(a.toStringForUser());
+        try {
+            List<Adherent> adherents = Services.selectAdherentsByName("Johnny", "Guye");
+            
+            List<Activite> activites = Services.selectActivitiesByName("Babyfoot");
+            
+            for (Activite a : activites) {
+                System.out.println(a.toStringForUser());
+            }
+            
+            Demande dem = new Demande(adherents.get(0), activites.get(0), JpaUtil.creerDate("27/03/2016"));
+            Services.postDemande(dem);            
+        } catch (Throwable ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        Demande dem = new Demande(adherents.get(0), activites.get(0), JpaUtil.creerDate("27/03/2016"));
-        Services.postDemande(dem);   
     }
 }

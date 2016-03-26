@@ -53,4 +53,63 @@ public class AdherentDao {
         
         return adherents;
     }
+    
+    public List<Adherent> findByMail(String mail) throws Throwable {
+        EntityManager em = JpaUtil.obtenirEntityManager();
+        List<Adherent> adherents = null;
+        try {
+            Query q = em.createQuery("SELECT a FROM Adherent a WHERE a.mail=:Mail");
+            q.setParameter("Mail", mail);
+            
+            adherents = (List<Adherent>) q.getResultList();
+        }
+        catch(Exception e) {
+            throw e;
+        }
+        
+        return adherents;
+    }
+    /**
+     * recupere la liste des adherents 
+     * @param name prenom
+     * @param surname nom
+     * @return
+     * @throws Throwable 
+     */
+    public List<Adherent> findByName(String name, String surname) throws Throwable {
+        EntityManager em = JpaUtil.obtenirEntityManager();
+        List<Adherent> adherents = null;
+        try {
+            Query q = em.createQuery("SELECT a FROM Adherent a WHERE a.nom=:Name and a.prenom=:Surname");
+            q.setParameter("Name", name);
+            q.setParameter("Surname", surname);
+            
+            adherents = (List<Adherent>) q.getResultList();
+        }
+        catch(Exception e) {
+            throw e;
+        }
+        
+        return adherents;
+    }
+    
+    public boolean authentication(String mail, String mdp) throws Throwable {
+        EntityManager em = JpaUtil.obtenirEntityManager();
+        List<Adherent> adherents = null;
+        try {
+            Query q = em.createQuery("SELECT a FROM Adherent a WHERE a.mail=:Mail");
+            q.setParameter("Mail", mail);
+            
+            adherents = (List<Adherent>) q.getResultList();
+        }
+        catch(Exception e) {
+            throw e;
+        }
+        if(adherents.isEmpty()){
+            //mail non inscrit
+        }else{
+            return adherents.get(0).compare(mdp);
+        }
+        return false;
+    }
 }

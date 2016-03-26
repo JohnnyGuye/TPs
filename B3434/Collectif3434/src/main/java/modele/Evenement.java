@@ -10,44 +10,31 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
 
 /**
  *
  * @author lokumuraon
  */
 @Entity
+@Inheritance
 public class Evenement implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
     protected Lieu lieu;
-    protected int typeEquipe;
     
-    public final int 
-            SOLO = 0,
-            TEAM = 1;
-    
-    protected Evenement(Lieu lieu, int typeEquipe)
+    protected Evenement(Lieu lieu)
     {
         this.lieu = lieu;
-        this.typeEquipe = typeEquipe;
     }
     
-    public Evenement(Lieu lieu){
-        this(lieu, 0);
-    }
+
     
     public Evenement(){
     }
-    
-    public Evenement(int typeEquipe){
-        this.typeEquipe=typeEquipe;
-    }
-    
-    public int getTypeEquipe(){
-        return typeEquipe;
-    }
+
     public Lieu getLieu(){
         return lieu;
     }

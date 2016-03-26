@@ -55,6 +55,24 @@ public class DemandeDao {
         return demandes;
     }
     
+    public List<Demande> findByDateAndActiviteFree(Demande dem) throws Throwable {
+        EntityManager em = JpaUtil.obtenirEntityManager();
+        List<Demande> demandes = null;
+        try {
+            //requete parametree : 
+            Query query = em.createQuery("select d from Demande d where d.date=:Date and d.activite=:activite and d.numeroTeam=:team");
+            query.setParameter("Date", dem.getDate());
+            query.setParameter("activite", dem.getActivite());
+            query.setParameter("team", -1);
+            demandes = (List<Demande>) query.getResultList();
+        }
+        catch(Exception e) {
+            throw e;
+        }
+        
+        return demandes;
+    }
+    
     public List<Demande> findByOwner(Adherent adh) throws Throwable {
         EntityManager em = JpaUtil.obtenirEntityManager();
         List<Demande> demandes = null;

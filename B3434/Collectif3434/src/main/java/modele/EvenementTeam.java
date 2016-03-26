@@ -5,17 +5,21 @@
  */
 package modele;
 
+import javax.persistence.Entity;
+
 /**
  *
  * @author lokumuraon
  */
+@Entity
 public class EvenementTeam extends Evenement{
 
-    public EvenementTeam(Lieu lieu) {
-        super(lieu, 1);
+    public EvenementTeam() {
+        super();
     }
-    public EvenementTeam(){
-        super(1);
+
+    public EvenementTeam(Lieu lieu) {
+        super(lieu);
     }
     
 }
