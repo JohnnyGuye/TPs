@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Menu.h"
-
 //	----------------------------------- PRIVEE
 
 /** Le numéro d'immatriculation de la prochaine
@@ -10,11 +8,11 @@ static int indexVoiture;
 
 /** @brief Constructeur du processus Clavier
 **/
-static void Clavier();
+//static void Clavier();
 
 /** @brief Destructeur du processus Clavier
 **/
-static void killClavier();
+//static void killClavier();
 
 // 	----------------------------------- PUBLIC
 
