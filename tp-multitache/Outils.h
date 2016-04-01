@@ -7,8 +7,7 @@
 *************************************************************************/
 
 //---------- Interface des fonctions Outils (fichier Outils.h) -----------
-#if ! defined OUTILS_H
-#define OUTILS_H
+#pragma once
 
 //------------------------------------------------------------------------
 // Rôle du module <Outils>
@@ -326,6 +325,3 @@ void TerminerApplication ( bool efface = true );
 //
 // Contrat : aucun
 //
-
-
-#endif // OUTILS_H
