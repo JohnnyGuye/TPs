@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import java.util.Properties;
 import javax.persistence.Query;
 import modele.*;
+import util.Saisie;
 import vue.main;
 
 /**
@@ -307,6 +308,7 @@ public class Services {
             JpaUtil.ouvrirTransaction();
         
             demDao.create(dem);
+            Saisie.lireChaine("Pause pour la demonstration, appuyez sur la touche entree");
             JpaUtil.validerTransaction();
             
         }catch(Exception e){
