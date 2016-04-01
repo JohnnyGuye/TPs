@@ -20,8 +20,6 @@ public class Adherent implements Serializable {
     private String adresse;
     private Double longitude;
     private Double latitude;
-    private String motDePasse;
-    private String responsable; //Responsable ou Adherent
 
  
     public Adherent() {
@@ -33,7 +31,6 @@ public class Adherent implements Serializable {
         this.mail = mail;
         this.adresse = adresse;
         this.setCoordonnees(GeoTest.getLatLng(adresse));
-        this.responsable = "Adherent";
     }
 
     public Long getId() {
@@ -64,22 +61,7 @@ public class Adherent implements Serializable {
         return latitude;
     }
     
-    public boolean compare(String mdp){
-        return (encrypt(mdp).equals(motDePasse));
-    }
-    
-    public void setMdp(String mdp){
-        this.motDePasse = encrypt(mdp);
-    }
-    
-    protected static String encrypt(String mdp){
-        String str = "";
-        int clé = 20;
-        for(int i = 0; i < mdp.length() ; i++){
-             str += (char)((mdp.charAt(i) + i + clé) % 256);
-        }
-        return str;
-    }
+
 
     public void setNom(String nom) {
         this.nom = nom;
@@ -100,25 +82,6 @@ public class Adherent implements Serializable {
     public void setCoordonnees(LatLng latLng) {
         this.longitude = latLng.lng;
         this.latitude = latLng.lat;
-    }
-
-       public String getMotDePasse() {
-        return motDePasse;
-    }
-
-    public void setMotDePasse(String motDePasse) {
-        this.motDePasse = motDePasse;
-    }
-
-    public boolean isResponsable() {
-        return responsable.equals("Responsable");
-    }
-
-    public void setResponsable(String responsable) {
-        this.responsable = "Responsable";
-    }
-    public void setAdherent(String responsable){
-        this.responsable = "Adherent";
     }
     
     @Override
