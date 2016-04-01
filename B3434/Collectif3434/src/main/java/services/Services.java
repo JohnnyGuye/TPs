@@ -328,7 +328,7 @@ public class Services {
         try {
             
             JpaUtil.ouvrirTransaction();
-            dems = demDao.findByDateAndActiviteFree(dem);
+            dems = demDao.findByDateAndActiviteFree(dem.getActivite(),dem.getDate());
             
             if(dems.size() >= nbP){
                 Evenement event;
@@ -370,9 +370,23 @@ public class Services {
         return dem.getId();
     }
    
-    
+    public static List<Demande> mesDemandes(Adherent adh){
+        List <Demande> demandes;       
+        try{
+            JpaUtil.creerEntityManager();
+            DemandeDao demDao = new DemandeDao();
+            demandes = demDao.findByOwner(adh);
+            JpaUtil.fermerEntityManager();
+        } catch (Throwable e){
+            demandes = new LinkedList();
+        }
+        return demandes;
+    }
     // === Evenement ===
-    
+    /**
+     * 
+     * @return 
+     */
     public static List<Evenement> selectAllEvents()  {
         List <Evenement> events;       
         try{
@@ -385,9 +399,41 @@ public class Services {
         }
         return events;
     }
+    public static boolean Evenements(){
+        boolean affecter = false;
+        List <Evenement> events;       
+        try{
+            JpaUtil.creerEntityManager();
+            EvenementDao evntDao = new EvenementDao();
+            DemandeDao demDao = new DemandeDao();
+            events = evntDao.findAll();
+            if(events.isEmpty()){
+                System.out.println("Aucun evenement trouve");
+            }
+            for(Evenement e:events){
+                System.out.print(e.stringListe());
+                List<Demande> demandes;
+                demandes=demDao.findByEvent(e);
+                System.out.print(demandes.get(0).getActivite().getDenomination());
+                for(Demande d:demandes){
+                    Adherent adh = d.getAdherent();
+                    System.out.println(adh.getNom()+" "+adh.getPrenom());
+                }
+                if(e.getLieu()==null){
+                    affecter=true;
+                }
+            }
+            JpaUtil.fermerEntityManager();
+        } catch (Throwable e){
+            events = new LinkedList();
+        }
+        return affecter;
+    }
     
-
-    
+    /**
+     * Selectionne les evenements dont le lieu n'a pas encore été affecté
+     * @return 
+     */
     public static List<Evenement> selectUnassignedEvents(){
         List <Evenement> events;       
         try{
@@ -402,7 +448,7 @@ public class Services {
     }
     
     /**
-     * Service utilise par le responsable
+     * Service utilise par le responsable pour recuperer un evenement precis
      * @param number
      * @return
      * @throws Throwable 
@@ -415,7 +461,12 @@ public class Services {
         JpaUtil.fermerEntityManager();
         return events;
     }
-    
+    /**
+     * Affecte un lieu a un événement et met a joour l'objet persistant
+     * @param event
+     * @param lieu
+     * @return 
+     */
     public static boolean assignLocationToEvent(Evenement event, Lieu lieu){
         JpaUtil.creerEntityManager();
         try{

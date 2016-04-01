@@ -60,7 +60,7 @@ public class InformationsDao {
         EntityManager em = JpaUtil.obtenirEntityManager();
         List<Informations> informations = null;
         try {
-            Query q = em.createQuery("SELECT a FROM Informations a WHERE a.adherent=:Adherent");
+            Query q = em.createQuery("SELECT i FROM Informations i WHERE i.adherent=:Adherent");
             q.setParameter("Adherent", adh);
             informations = (List<Informations>) q.getResultList();
             if(informations.isEmpty()){

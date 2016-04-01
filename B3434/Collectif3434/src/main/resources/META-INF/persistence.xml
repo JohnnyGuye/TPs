@@ -5,12 +5,12 @@
     <class>modele.Activite</class>
     <class>modele.Adherent</class>
     <class>modele.Lieu</class>
-    <class>modele.Demande</class>
-    <class>modele.Evenement</class>
     <class>modele.EvenementSolo</class>
     <class>modele.EvenementTeam</class>
     <class>modele.Informations</class>
     <class>dao.InformationsDao</class>
+    <class>modele.Demande</class>
+    <class>modele.Evenement</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/collectifB3434"/>
       <property name="javax.persistence.jdbc.password" value="mdpjl"/>

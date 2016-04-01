@@ -62,7 +62,7 @@ public class main {
                         auth = Services.identification(mail, mdp);
                         if (auth.getAdherent().getMail().equals(mail)) {
                             System.out.println("Bonjour " + auth.getAdherent().getPrenom());
-                            user=auth.getAdherent();
+                            user = auth.getAdherent();
                             login = true;
                         }
                     } catch (NullPointerException npe) {
@@ -151,8 +151,8 @@ public class main {
                             int jour = Saisie.lireInteger("Jour :");
                             int mois = Saisie.lireInteger("Mois :");
                             int annee = Saisie.lireInteger("Annee: ");
-                            if(annee<2000){
-                                annee+=2000;
+                            if (annee < 2000) {
+                                annee += 2000;
                                 System.out.println(annee);
                             }
                             Date date;
@@ -164,6 +164,17 @@ public class main {
                         System.out.println("Il faut etre identifie pour pouvoir faire cette action");
                     }
                     break;
+                }
+                case "demandes": {
+                    if (login) {
+                        List<Demande> demandes = Services.mesDemandes(user);
+                        for (Demande d : demandes) {
+                            System.out.println(d.stringListe());
+                        }
+                        break;
+                    } else {
+                        System.out.println("Il faut etre identifie pour pouvoir faire cette action");
+                    }
                 }
                 case "affecter": {
                     if (auth.isResponsable()) {
@@ -186,9 +197,8 @@ public class main {
                     break;
                 }
                 case "events": {
-                    List<Evenement> evenements = Services.selectAllEvents();
-                    for (Evenement e : evenements) {
-                        System.out.println(e.stringListe());
+                    if (Services.Evenements()) {
+                        System.out.println("Les evenements marquees par ! ont besoin 'un lieu");
                     }
                     break;
                 }
@@ -197,7 +207,7 @@ public class main {
                     break;
                 case "help":
                     System.out.println("exit :\n quitte l'application\nlogin:\n pour s'identifier \npost:\n pour poster une demande\nactivities:\n liste les activites");
-                    if(auth.isResponsable()){
+                    if (auth.isResponsable()) {
                         System.out.println("events:\n liste les evenements ! marque les evenements a affecter un lieu\naffecter:\n pour affecter un lieu\n lieux:\n liste les lieux disponibles");
                     }
                 default:

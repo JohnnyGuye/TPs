@@ -118,5 +118,8 @@ public class Demande implements Serializable {
     public String toString() {
         return "modele.Demande[ id=" + id + " ]";
     }
+    public String stringListe(){
+        return "["+id+"]"+activite.getDenomination()+" le "+date;
+    }
     
 }
