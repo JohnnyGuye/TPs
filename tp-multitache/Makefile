@@ -7,6 +7,7 @@ COMP = g++ -std=c++11
 RM = rm
 ECHO = @echo
 COPY = @cp
+SHOW = @cat
 CD = cd
 
 
@@ -74,12 +75,15 @@ GestClav.o : GestClav.cpp Menu.h
 
 runLeak : all
 	$(ECHO) "\n->>>>>>> Lancement du programme (with leak test) <<<<<<<<-"
-	valgrind ./$(EXE)
+	valgrind ./$(EXE) 2> $(EXE).log
 
 run : all
 	$(ECHO) "\n->>>>>>> Lancement du programme <<<<<<<<-"
-	./$(EXE)
+	./$(EXE) 2> $(EXE).log
 
+log : 
+	clear
+	$(SHOW) $(EXE).log
 # ==== REGLES D'EFFACEMENT ====
 oClean :
 	$(RM) $(RMFLAGS) $(OBJ) $(MAIN).o test.o core
@@ -89,4 +93,11 @@ clean :
 
 mrproper :
 	$(RM) $(RMFLAGS) $(EXE) core
+	
+cleanProcess :	
+	bash cleanUp.sh
+	
+regen:
+	make cleanProcess
+	make run
 

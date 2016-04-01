@@ -4,34 +4,35 @@
 //#include <unistd.h>
 //#include <sys/types.h>
 #include "Menu.h"
+#include "Globaux.h"
+
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <time.h>
 #include <stdlib.h> //pour exit
-
-//-------------------------------------------------Portée fichier
-
-static void Clavier()
-{
-	indexVoiture = 0;
-}
-
-
-static void killClavier()
-{
-	exit(0);
-}
-
-
+#include <iostream>
 //-----------------------------------------------Portée programme
 
+static int tubePBP, tubeABP, tubeGB, tubeS;
 
 /** @brief fonctionnement du processus Clavier
 **/
 
 void ClavManager()
 {
-
 	//init
-	Clavier();
+	cerr << "Initialisation des canaux clavier" << endl;
+	cerr << "tubPBP" << endl;
+	tubePBP = open(CANAL_PBP, O_WRONLY);
+	cerr << "tubABP" << endl;
+	tubeABP  = open(CANAL_ABP, O_WRONLY);
+	cerr << "tubGB" << endl;
+	tubeGB = open(CANAL_GB, O_WRONLY);
+	cerr << "tubS" << endl;
+	//tubeS = open(CANAL_S, O_WRONLY);
 	
+	cerr << "Début du clavier" << endl;
 	//WIP
 	for(;;)    Menu();
 
@@ -48,38 +49,55 @@ void Commande(char code,unsigned int valeur)
         case 'E':
 			if(valeur == 0)
 			{
-				killClavier();
+				close(tubePBP);
+				close(tubeABP);
+				close(tubeGB);
+				close(tubeS);
+				exit(0);
 			}
 //end application
             break;
+            //Cas professeur
     	case 'p':
 		case 'P':
+			{
+				indexVoiture = (indexVoiture + 1) % 1000;
 		
-			indexVoiture = (indexVoiture + 1) % 1000;
-			
-			if(valeur == 1)//Blaise Pascal
-			{
-			
-			}
-			else if(valeur == 2)//Gaston Berger
-			{
-			
+				Voiture v;
+				v.numIndex = indexVoiture;
+				v.arrivee = time(NULL);
+				v.usager = PROF;
+		
+				if(valeur == 1)//Blaise Pascal
+				{
+					write(tubePBP, &v, sizeof(v));
+				}
+				else if(valeur == 2)//Gaston Berger
+				{
+					write(tubeGB, &v, sizeof(v));
+				}
 			}
             break;
+            //Cas autres
         case 'a':
         case 'A':
-        
-        	indexVoiture = (indexVoiture + 1) % 1000;
-        	
-        	if(valeur == 1)//Blaise Pascal
-			{
+		    {
+		    	indexVoiture = (indexVoiture + 1) % 1000;
 			
-			}
-			else if(valeur == 2)//Gaston Berger
-			{
+				Voiture v;
+				v.numIndex = indexVoiture;
+				v.arrivee = time(NULL);
+				v.usager = AUTRE;
 			
-			}
-        
+				if(valeur == 1)//Blaise Pascal
+				{
+					write(tubeABP, &v, sizeof(v));
+				}
+				else if(valeur == 2)//Gaston Berger
+				{
+					write(tubeGB, &v, sizeof(v));
+				}
+        	}
         	break;
         case 's':
         case 'S':

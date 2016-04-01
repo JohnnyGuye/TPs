@@ -7,8 +7,7 @@
 *************************************************************************/
 
 //---------- Interface du module <Menu> (fichier Menu.h) -----------------
-#if ! defined MENU_H
-#define MENU_H
+#pragma once
 
 //------------------------------------------------------------------------
 // Rôle du module <Menu>
@@ -72,6 +71,3 @@ void Menu ( void );
 //
 // Contrat : aucun
 //
-
-
-#endif // MENU_H

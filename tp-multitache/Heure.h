@@ -7,8 +7,7 @@
 *************************************************************************/
 
 //---------- Interface de la tâche <Heure> (fichier Heure.h) -------------
-#if ! defined HEURE_H
-#define HEURE_H
+#pragma once
 
 //------------------------------------------------------------------------
 // Rôle de la tâche <Heure>
@@ -41,5 +40,3 @@ pid_t ActiverHeure ( void );
 // Contrat : aucun
 //
 
-
-#endif // HEURE_H
