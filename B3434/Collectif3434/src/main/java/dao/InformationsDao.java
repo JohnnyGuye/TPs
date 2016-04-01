@@ -80,6 +80,13 @@ public class InformationsDao {
         
         return null;
     }
+    /**
+     * 
+     * methode utilise pour la premiere conexion d'un utilisateur
+     * @param adh
+     * @param mdp
+     * @return 
+     */
     public Informations registerUser(Adherent adh,String mdp){
         Informations info;
         EntityManager em = JpaUtil.obtenirEntityManager();

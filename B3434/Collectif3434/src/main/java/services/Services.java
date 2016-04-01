@@ -37,6 +37,12 @@ public class Services {
     // ==== Services métier ====
     // === Adhérent ===
     //S'inscrire
+    /**
+     * 
+     * Service utilise pour s'inscrire
+     * @param informations
+     * @return 
+     */
     public static Long register(Informations informations){
         JpaUtil.creerEntityManager();
         
@@ -141,7 +147,8 @@ public class Services {
         return info;
     }
     /**
-     * 
+     * Utile pour les adherents qui s'ont deja presents dans la base de donnees , n'ayant pas encore un objet
+     * Informations associe
      * @param mail
      * @return 
      */
@@ -167,7 +174,9 @@ public class Services {
     // === Activté ===
     
     /**
-     * Ajoute une activite au catalogue
+     * Ajoute une activite au catalogue, service non utilise dans le main,
+     * mais peut etre utile pour la suite, si on veutfaire evoluer le catalogue
+     * des activites
      * @param activite l'activite à ajouter
      * @return true si l'activite a été ajoutee
      */
@@ -296,7 +305,7 @@ public class Services {
     
     // === Demande ===
     /**
-     * 
+     * Service utilise pour poster une demande
      * @param dem
      * @return l'id de la demande le cas ou la demande est passee
      */
@@ -369,7 +378,12 @@ public class Services {
         
         return dem.getId();
     }
-   
+    /**
+     * 
+     * Service utilise pour connaitre les demandes faites par un adherent
+     * @param adh
+     * @return 
+     */
     public static List<Demande> mesDemandes(Adherent adh){
         List <Demande> demandes;       
         try{
@@ -384,7 +398,7 @@ public class Services {
     }
     // === Evenement ===
     /**
-     * 
+     * Selectionne tous les evenements
      * @return 
      */
     public static List<Evenement> selectAllEvents()  {
@@ -399,6 +413,13 @@ public class Services {
         }
         return events;
     }
+    /**
+     * Service utilise pour afficher les evenements et ses details,
+     * cette methode est utilise parce que les evenements ne contiennent ni la
+     * date ni l'activite de l'evenement.
+     * 
+     * @return 
+     */
     public static boolean Evenements(){
         boolean affecter = false;
         List <Evenement> events;       
