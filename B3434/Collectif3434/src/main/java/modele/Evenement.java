@@ -76,4 +76,13 @@ public class Evenement implements Serializable {
         return "metier.modele.Evenement[ id=" + id + " ]";
     }
     
+    public String stringListe(){
+        String retour = "["+id+"]";
+        if(lieu==null){
+            return retour+"!";
+        }else{
+            return retour;
+        }
+    }
+    
 }

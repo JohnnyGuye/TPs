@@ -32,27 +32,19 @@ public class Services {
         
     }
     
-    public static void sendEventNotificationMail(Evenement evt){
-        Query query = JpaUtil.request("select d From Demande d Where d.evenement_id =\""+evt.getId()+"\"");
-        List<Demande> dems = query.getResultList();
-        for(Demande d:dems){
-            //query = JpaUtil.request("select a from Adherent a where id=\""+d.getAdherent().getId()+"\"");
-            System.out.println("Envoyer un couriel a "+d.getAdherent().getMail()+" contenant pour l'évènement");
-            System.out.println(evt.toString());
-        }
-    }
     
     // ==== Services métier ====
     // === Adhérent ===
     //S'inscrire
-    public static Long register(Adherent adherent){
+    public static Long register(Informations informations){
         JpaUtil.creerEntityManager();
         
         
         AdherentDao adhDao = new AdherentDao();
+        InformationsDao infoDao = new InformationsDao();
         //verifie que l'adresse mail n'est pas encore utilise
         try {
-            if(!(adhDao.findByMail(adherent.getMail()).isEmpty())){
+            if(!(adhDao.findByMail(informations.getAdherent().getMail()).isEmpty())){
                 return null;
             }
         } catch (Throwable ex) {
@@ -61,7 +53,8 @@ public class Services {
         }
         try{  
             JpaUtil.ouvrirTransaction();         
-            adhDao.create(adherent);
+            adhDao.create(informations.getAdherent());
+            infoDao.create(informations);
             JpaUtil.validerTransaction();
         }catch(Exception e){JpaUtil.validerTransaction();
             e.printStackTrace();
@@ -71,7 +64,7 @@ public class Services {
             JpaUtil.fermerEntityManager();  
         }
         
-        return adherent.getId();  
+        return informations.getAdherent().getId();  
     }
     
     /**
@@ -126,15 +119,48 @@ public class Services {
      * Identification de l'utilisateur
      * 
      * @param mail
+     * @param mdp
      * @return
      * @throws Throwable 
      */
-    public static boolean identification(String mail) throws Throwable{
+    public static Informations identification(String mail,String mdp) throws Throwable{
         JpaUtil.creerEntityManager();
         AdherentDao adhDao = new AdherentDao();
-        boolean b = adhDao.authentication(mail);
+        InformationsDao infoDao = new InformationsDao();
+        List<Adherent> adh;
+        Informations info=new Informations();
+        adh=adhDao.findByMail(mail);
+        if(adh.isEmpty()){
+            System.out.println("Utilisateur non inscrit");
+        }else{
+            info=infoDao.authentification(adh.get(0),mdp);
+            return info;
+        }
         JpaUtil.fermerEntityManager();
-        return b;
+        return info;
+    }
+    /**
+     * 
+     * @param mail
+     * @return 
+     */
+    public static Informations premiereConnexion(String mail, String mdp) throws Throwable{
+        JpaUtil.creerEntityManager();
+        AdherentDao adhDao = new AdherentDao();
+        InformationsDao infoDao = new InformationsDao();
+        List<Adherent> adh;
+        Informations info=new Informations();
+        adh=adhDao.findByMail(mail);
+        if(adh.isEmpty()){
+            
+        }else{
+            JpaUtil.ouvrirTransaction();
+            info=infoDao.registerUser(adh.get(0),mdp);
+            JpaUtil.validerTransaction();
+            JpaUtil.fermerEntityManager();
+            return info;
+        }
+        return info;
     }
  
     // === Activté ===
@@ -171,13 +197,15 @@ public class Services {
      * @return la liste de toutes les activites
      */
     public static List<Activite> selectAllActivities(){
-        List <Activite> activities;       
+        List <Activite> activities;      
+        JpaUtil.creerEntityManager();
         try{
             ActiviteDao evntDao = new ActiviteDao();
             activities = evntDao.findAll();
         } catch (Throwable e){
             activities = new LinkedList();
         }
+        JpaUtil.fermerEntityManager();
         return activities;
     }
     
@@ -249,6 +277,20 @@ public class Services {
         lieux = query.getResultList();
         JpaUtil.fermerEntityManager();
         return lieux;
+    }
+    /**
+     * renvoie le lieu avec le numero correspondant
+     * @param number
+     * @return
+     * @throws Throwable 
+     */
+    public static Lieu selectLieuByNumber(long number) throws Throwable{
+        Lieu lieu;     
+        LieuDao lieuDao = new LieuDao();
+        JpaUtil.creerEntityManager();
+        lieu = lieuDao.findById(number);
+        JpaUtil.fermerEntityManager();
+        return lieu;
     }
     
     // === Demande ===
@@ -325,13 +367,6 @@ public class Services {
         
         return dem.getId();
     }
-    
-    protected static void ValidTransac(boolean ok){
-        if(ok)
-            JpaUtil.validerTransaction();
-        else
-            JpaUtil.annulerTransaction();
-    }
    
     
     // === Evenement ===
@@ -339,36 +374,71 @@ public class Services {
     public static List<Evenement> selectAllEvents()  {
         List <Evenement> events;       
         try{
+            JpaUtil.creerEntityManager();
             EvenementDao evntDao = new EvenementDao();
             events = evntDao.findAll();
+            JpaUtil.fermerEntityManager();
         } catch (Throwable e){
             events = new LinkedList();
         }
         return events;
     }
     
-    public static List<Evenement> selectEventsByName(String name){
-        List <Evenement> events;     
+
+    
+    public static List<Evenement> selectUnassignedEvents(){
+        List <Evenement> events;       
+        try{
+            JpaUtil.creerEntityManager();
+            EvenementDao evntDao = new EvenementDao();
+            events = evntDao.findUnassigned();
+            JpaUtil.fermerEntityManager();
+        } catch (Throwable e){
+            events = new LinkedList();
+        }
+        return events;
+    }
+    
+    /**
+     * Service utilise par le responsable
+     * @param number
+     * @return
+     * @throws Throwable 
+     */
+    public static Evenement selectEventByNumber(long number) throws Throwable{
+        Evenement events;     
+        EvenementDao evtDao = new EvenementDao();
         JpaUtil.creerEntityManager();
-        Query query = JpaUtil.request("select a from Evenement a where a.denomination=\"" + name + "\"");
-        events = query.getResultList();
+        events = evtDao.findById(number);
         JpaUtil.fermerEntityManager();
         return events;
     }
     
     public static boolean assignLocationToEvent(Evenement event, Lieu lieu){
+        JpaUtil.creerEntityManager();
         try{
             EvenementDao evntDao = new EvenementDao();
-            Evenement evnt = evntDao.findById(event.getId());
-            evnt.setLieu(lieu);
-            evntDao.update(evnt);
+            event.setLieu(lieu);
+            JpaUtil.ouvrirTransaction();
+            evntDao.update(event);
+            JpaUtil.validerTransaction();
         }catch(Throwable e){
             e.printStackTrace();
             return false;
         }
         
         //TODO envoyer confirmation aux adherents
-        sendEventNotificationMail(event);
+        Query query = JpaUtil.request("select d From Demande d Where d.evenement=:evenement");
+        query.setParameter("evenement", event);
+        List<Demande> dems = query.getResultList();
+        if(dems.isEmpty()){
+            System.out.println("demandes introuvables");
+        }
+        for(Demande d:dems){
+            //query = JpaUtil.request("select a from Adherent a where id=\""+d.getAdherent().getId()+"\"");
+            System.out.println("Envoyer un couriel a "+d.getAdherent().getMail()+" contenant les informations pour le");
+            System.out.println(d.getActivite().getDenomination()+"du "+d.getDate());
+        }
         return true;
     }
     

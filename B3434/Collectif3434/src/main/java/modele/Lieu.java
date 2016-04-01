@@ -83,5 +83,9 @@ public class Lieu implements Serializable {
         return "Lieu{" + "id=" + id + ", denomination=" + denomination + ", description=" + description + ", adresse=" + adresse + ", longitude=" + longitude + ", latitude=" + latitude + '}';
     }
     
+    public String stringListe(){
+        return "["+id+"] "+denomination;
+    }
+    
     
 }
