@@ -1,18 +1,20 @@
 # Ce makefile compile le TP C++ n°2 : TrafficJam
 
 # =============== VARIABLES =============================
-MAKE = @make
-EDL = g++ -std=c++11
-COMP = g++ -std=c++11
+VERB = @
+MAKE = $(VERB)make
 RM = rm
+EDL = $(VERB)g++ 
+COMP = $(VERB)g++ -std=c++11
 ECHO = @echo
-COPY = @cp
-SHOW = @cat
+COPY = $(VERB)cp
+SHOW = $(VERB)cat
+BASH = $(VERB)bash
 CD = cd
 
 
-EDLFLAGS = -o
-CPPFLAGS = -c
+EDLFLAGS = -o -std=c++11
+CPPFLAGS = -c -std=c++11
 WARNINGFLAGS = -Wall -Wextra -pedantic
 RMFLAGS = -f
 DMAP = -DMAP
@@ -29,7 +31,6 @@ MAIN = Mere
 #pour Johnny
 LIBS = -lm -ltp -lncurses -ltcl8.5
 LIBPATH = -Llibs
-#LIBPATH = -Llibs
 INCPATH =# -I nothing
 
 #-------------------------------------------- Directories
@@ -71,6 +72,10 @@ Menu.o : Menu.h
 Outils.o : Outils.h
 GestClav.o : GestClav.cpp Menu.h
 
+rebuild:
+	$(MAKE) clean
+	$(MAKE) run
+
 # ==== REGLES DE LAUNCH ====
 
 runLeak : all
@@ -89,15 +94,14 @@ oClean :
 	$(RM) $(RMFLAGS) $(OBJ) $(MAIN).o test.o core
 
 clean :
+	$(MAKE) cleanProcess
 	$(RM) $(RMFLAGS) $(EXE) $(OBJ) $(MAIN).o test.o $(TEMP) core
+
 
 mrproper :
 	$(RM) $(RMFLAGS) $(EXE) core
 	
 cleanProcess :	
-	bash cleanUp.sh
-	
-regen:
-	make cleanProcess
-	make run
+	$(ECHO) " === Clean Canals, ipcs and pcs"
+	$(BASH) cleanUp.sh
 

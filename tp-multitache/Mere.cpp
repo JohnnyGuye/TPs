@@ -12,6 +12,7 @@
 #include "Globaux.h"
 #include "GestClav.h"
 #include "Entree.h"
+#include "Sortie.h"
 #include "Heure.h"
 #include "Outils.h"
 #include "Menu.h"
@@ -26,6 +27,7 @@ int main(void)
 	pid_t portePBP;
 	pid_t porteABP;
 	pid_t procHeure;
+	pid_t porteS;
 	
 	//cout << DROITS << endl;
 	//Memoire partagée
@@ -79,7 +81,7 @@ int main(void)
 	}
 	else
 	{
-		cerr << "Tout les canaux ont bien été instanciés" << endl;
+		cerr << "CanauxOK" << endl;
 	}
 	
 	
@@ -116,6 +118,10 @@ int main(void)
 	{
 		Entree(AUTRE_BLAISE_PASCAL, memId, semId);
 	}
+	else if( (porteS = fork() ) == 0)
+	{
+		Sortie(semId, memId);
+	}
 	else
 	{
 		waitpid( procClavier, NULL, 0);
@@ -124,11 +130,13 @@ int main(void)
 		kill(portePBP, SIGUSR2);
 		kill(porteABP, SIGUSR2);
 		kill(procHeure, SIGUSR2);
+		kill(porteS, SIGUSR2);
 		
 		waitpid(porteGB, NULL, 0);
 		waitpid(portePBP, NULL, 0);
 		waitpid(porteABP, NULL, 0);
 		waitpid(procHeure, NULL, 0);
+		waitpid(porteS, NULL, 0);
 		
 		unlink(CANAL_PBP);
 		unlink(CANAL_ABP);

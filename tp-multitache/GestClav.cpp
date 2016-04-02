@@ -23,16 +23,14 @@ void ClavManager()
 {
 	//init
 	cerr << "Initialisation des canaux clavier" << endl;
-	cerr << "tubPBP" << endl;
 	tubePBP = open(CANAL_PBP, O_WRONLY);
-	cerr << "tubABP" << endl;
+	cerr << "tubPBP" << endl;
 	tubeABP  = open(CANAL_ABP, O_WRONLY);
-	cerr << "tubGB" << endl;
+	cerr << "tubABP" << endl;
 	tubeGB = open(CANAL_GB, O_WRONLY);
+	cerr << "tubGB" << endl;
+	tubeS = open(CANAL_S, O_WRONLY);
 	cerr << "tubS" << endl;
-	//tubeS = open(CANAL_S, O_WRONLY);
-	
-	cerr << "Début du clavier" << endl;
 	//WIP
 	for(;;)    Menu();
 
