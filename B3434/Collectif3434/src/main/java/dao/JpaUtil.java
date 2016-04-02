@@ -154,7 +154,7 @@ public class JpaUtil {
     }
     /**
      * Cree une date a partir d'un format comprensible
-     * <br/><strong>À utiliser uniquement au niveau DAO.</strong>
+     * 
      *
      * @return instance de Entity Manager
      */

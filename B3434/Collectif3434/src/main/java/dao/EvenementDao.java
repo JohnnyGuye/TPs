@@ -53,4 +53,18 @@ public class EvenementDao {
         
         return activites;
     }
+    
+        public List<Evenement> findUnassigned() throws Throwable {
+        EntityManager em = JpaUtil.obtenirEntityManager();
+        List<Evenement> activites = null;
+        try {
+            Query q = em.createQuery("SELECT a FROM Evenement a WHERE a.lieu IS NULL");
+            activites = (List<Evenement>) q.getResultList();
+        }
+        catch(Exception e) {
+            throw e;
+        }
+        
+        return activites;
+    }
 }

@@ -53,7 +53,15 @@ public class AdherentDao {
         
         return adherents;
     }
-    
+    /**
+     * 
+     * Renvoie la liste des adherents qui possedent un mail donne.
+     * cette methode a ete implemente quand on pouvait avoir un mail repete
+     * d'ou une liste.
+     * @param mail
+     * @return
+     * @throws Throwable 
+     */
     public List<Adherent> findByMail(String mail) throws Throwable {
         EntityManager em = JpaUtil.obtenirEntityManager();
         List<Adherent> adherents = null;

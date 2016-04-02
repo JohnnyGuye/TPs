@@ -32,7 +32,7 @@ public class LieuDao {
         EntityManager em = JpaUtil.obtenirEntityManager();
         Lieu lieu = null;
         try {
-            lieu = em.find(Lieu.class, id);
+            lieu = em.find(Lieu.class, (int)id);
         }
         catch(Exception e) {
             throw e;
