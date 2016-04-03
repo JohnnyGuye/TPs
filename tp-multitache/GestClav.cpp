@@ -99,7 +99,12 @@ void Commande(char code,unsigned int valeur)
         	break;
         case 's':
         case 'S':
-        
+        	{
+        		if(valeur < 9)
+        		{
+        			write(tubeS, &valeur, sizeof(valeur));
+        		}
+        	}
         	break;
         default:
             break;
