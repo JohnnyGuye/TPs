@@ -1,18 +1,6 @@
 #include "GestClav.h"
 
-//#include <fcntl.h>
-//#include <unistd.h>
-//#include <sys/types.h>
-#include "Menu.h"
-#include "Globaux.h"
-
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <time.h>
-#include <stdlib.h> //pour exit
-#include <iostream>
-//-----------------------------------------------Portée programme
+//-----------------------------------------------Private
 
 static int tubePBP, tubeABP, tubeGB, tubeS,
 	indexVoiture;

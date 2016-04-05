@@ -13,6 +13,7 @@ static void killVoiturier(int);
 static void killBarriere(int);
 static void run();
 
+//QUand la barrière meurt
 static void killBarriere(int signal)
 {
 	if(signal == SIGUSR2)
@@ -36,6 +37,7 @@ static void killBarriere(int signal)
 
 }
 
+//Quand le voiturier meurt
 static void killVoiturier(int signal)
 {
 	if(signal == SIGCHLD)
@@ -107,6 +109,7 @@ static void killVoiturier(int signal)
 	}
 }
 
+//Le moteur
 static void run()
 {
 	Voiture voiture;
@@ -141,7 +144,7 @@ static void run()
 }
 
 //--------------------------------Public
-
+//Le process
 void Sortie( int memID, int semID )
 {
 	semId = semID;

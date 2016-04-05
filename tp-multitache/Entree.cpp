@@ -1,24 +1,4 @@
 #include "Entree.h"
-#include "Globaux.h"
-#include "Outils.h"
-
-#include <signal.h> //pour sigaction SIGUSR2 et SIGCHLD
-#include <stdlib.h> //pour exit
-
-#include <unistd.h>
-#include <sys/wait.h>
-#include <fcntl.h>
-#include <sys/ipc.h>
-#include <sys/shm.h>	//shared memory
-#include <sys/sem.h>	//semget et autres
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <iostream>
-#include <sstream>
-
-#include <map>
-#include <tuple>
-
 
 static int tubeFromKeyboard;	//Canal de communication avec l'entrée
 static int memId, semId;
@@ -29,6 +9,7 @@ static void killBarriere (int signal);
 static void run (TypeBarriere type);
 static void killVoiturier(int signal);
 
+//Le moteur du process
 static void run(TypeBarriere type)
 {
 	
@@ -69,6 +50,7 @@ static void run(TypeBarriere type)
 	}
 }
 
+//Quand on demande à la barrière de mourrir
 static void killBarriere(int signal)
 {
 	//On vérifie le signal
@@ -97,6 +79,7 @@ static void killBarriere(int signal)
 	}
 }
 
+//Quand un voiturier meurt
 static void killVoiturier (int signal)
 {
 	//La voiture vient de se garer, il faut l'écrire en mémoire et l'afficher
@@ -122,7 +105,6 @@ static void killVoiturier (int signal)
 
 //	------------------------------------------------ PUBLIC
 //	Processus complet 
-
 void Entree(TypeBarriere type, int memID, int semID)
 {
 	switch(type)

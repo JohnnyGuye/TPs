@@ -40,7 +40,7 @@ srcdir = ./
 headdir = ./Constantes
 testdir = ../tests
 
-.PHONY: clean mrproper
+.PHONY: clean mrproper cleanProcess oClean
 
 # ============= FORMES GENERIQUES =======================
 
@@ -93,7 +93,7 @@ log :
 	$(SHOW) $(EXE).log
 # ==== REGLES D'EFFACEMENT ====
 oClean :
-	$(RM) $(RMFLAGS) $(OBJ) $(MAIN).o test.o core
+	$(RM) $(RMFLAGS) $(OBJ) $(MAIN).o bin test.o core
 
 clean :
 	$(MAKE) cleanProcess
