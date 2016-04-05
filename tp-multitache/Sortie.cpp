@@ -54,6 +54,7 @@ static void killVoiturier(int signal)
 		shMem *sharedMemory = (shMem *) shmat(memId, NULL, 0);
 		v = sharedMemory->places[retour -1];//recup de la voiture puis effacement de son existance dans la sm
 		sharedMemory->places[retour -1] = { 0, 0, AUCUN };
+		sharedMemory->nbPlacesTaken--;
 		reqPBP = sharedMemory->requetes[(int)PROF_BLAISE_PASCAL - 1];
 		reqABP = sharedMemory->requetes[(int)AUTRE_BLAISE_PASCAL -1];
 		reqGB = sharedMemory->requetes[(int)ENTREE_GASTON_BERGER -1];
@@ -93,7 +94,8 @@ static void killVoiturier(int signal)
 			//Accès mémoire
 			while(semop(semId, &pSM, 1) == -1 && errno == EINTR);
 			shMem *sharedMemory = (shMem *) shmat(memId, NULL, 0);
-			reqPBP = sharedMemory->requetes[nextV - 1];
+			sharedMemory->requetes[nextV - 1] = {0, 0, AUCUN};
+			sharedMemory->nbPlacesTaken++;
 			shmdt(sharedMemory);
 			semop(semId, &vSM, 1);
 			//--Fin accès mémoire
@@ -118,18 +120,22 @@ static void run()
 	if( read(tubeFromKeyboard, &valeur, sizeof(valeur)) > 0)
 	{
 		
-		while(semop(semId, &pSM, 1) == -1 && errno == EINTR);
-		
-		shMem *sharedMemory = (shMem *) shmat(memId, NULL, 0);
-		voiture = sharedMemory->places[valeur -1];
-		shmdt(sharedMemory);
-		
-		semop(semId, &vSM, 1);
-		
 		voiturier = SortirVoiture ( valeur );
-		voitures.insert(pair<pid_t, Voiture>(voiturier, voiture));
 		
-		Effacer( (TypeZone)( ETAT_P1 + (valeur - 1)) );
+		if( voiturier != -1 )//Ca marche moins bien quand y a pas de voiture à cette place..
+		{
+			while(semop(semId, &pSM, 1) == -1 && errno == EINTR);
+		
+			shMem *sharedMemory = (shMem *) shmat(memId, NULL, 0);
+			voiture = sharedMemory->places[valeur -1];
+			shmdt(sharedMemory);
+		
+			semop(semId, &vSM, 1);
+		
+			voitures.insert(pair<pid_t, Voiture>(voiturier, voiture));
+		
+			Effacer( (TypeZone)( ETAT_P1 + (valeur - 1)) );
+		}
 	}
 
 }

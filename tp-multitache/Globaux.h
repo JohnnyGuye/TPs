@@ -14,6 +14,8 @@ const mode_t DROITS = 0660;
 #define CANAL_ABP "Canal_Autre_Blaise_Pascal"
 #define CANAL_GB "Canal_Gaston_Berger"
 #define CANAL_S "Canal_Sortie"
+
+const int TEMPO = 1;
 /*
 static const char * CANAL_PBP = "Canal_Prof_Blaise_Pascal",
 	* CANAL_ABP = "Canal_Autre_Blaise_Pascal",

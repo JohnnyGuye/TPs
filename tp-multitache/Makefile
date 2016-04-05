@@ -97,7 +97,7 @@ oClean :
 
 clean :
 	$(MAKE) cleanProcess
-	$(RM) $(RMFLAGS) $(EXE) $(OBJ) $(MAIN).o test.o $(TEMP) core
+	$(RM) $(RMFLAGS) $(EXE) $(OBJ) bin $(MAIN).o test.o $(TEMP) core
 
 
 mrproper :

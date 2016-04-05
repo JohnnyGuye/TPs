@@ -41,10 +41,8 @@ static void run(TypeBarriere type)
 	{
 		DessinerVoitureBarriere(type, voiture.usager);
 		
-		while(semop(semId, &pSM, 1) == -1 && errno == EINTR);	//On demande l'accès à la SM
-		
-		shMem *sharedMemory = (shMem *) shmat(memId, NULL, 0);
-		
+		while(semop(semId, &pSM, 1) == -1 && errno == EINTR);	//On demande l'accès à la SM	
+		shMem *sharedMemory = (shMem *) shmat(memId, NULL, 0);	
 		if(sharedMemory->nbPlacesTaken == NB_PLACES)
 		{
 			AfficherRequete(type, voiture.usager, voiture.arrivee);
@@ -56,18 +54,17 @@ static void run(TypeBarriere type)
 			while(semop(semId, &p, 1) == -1 && errno == EINTR);
 		}
 		else
-		{	
+		{
 			sharedMemory->nbPlacesTaken++;
 			shmdt(sharedMemory);
 			
 			semop(semId, &vSM, 1);
-			
-			pid_t voiturier = GarerVoiture(type);
-			voitures.insert(pair<pid_t, Voiture>(voiturier, voiture));
-			
-			//Y avait le soucis de la requete qui restait affichée même quand la voiture se garait
-			Effacer( (TypeZone) (REQUETE_R1 + (type - 1) )  );
 		}
+		pid_t voiturier = GarerVoiture(type);
+		voitures.insert(pair<pid_t, Voiture>(voiturier, voiture));
+		
+		//Y avait le soucis de la requete qui restait affichée même quand la voiture se garait
+		Effacer( (TypeZone) (REQUETE_R1 + (type - 1) )  );
 		
 	}
 }
