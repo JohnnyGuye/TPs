@@ -2,11 +2,10 @@ Initialisation mémoire
 Création canaux
 CanauxOK
 Initialisation des canaux clavier
-0x7fff1e6fc4480x7fff1e6fc4480x7fff1e6fc448Boucle barrière type 1
+I3
+I1
 tubPBP
+I2
 tubABP
-Boucle barrière type tubGB2
-Boucle barrière type 
-3tubS
-
-1--7--6--5--4--8--3--2--
+tubGB
+tubS

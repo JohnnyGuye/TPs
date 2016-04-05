@@ -84,6 +84,12 @@ int main(void)
 		cerr << "CanauxOK" << endl;
 	}
 	
+	//Initialisation sémaphores
+	semctl(semId, PortePBPtoExit, SETVAL, 0);
+	semctl(semId, PorteABPtoExit, SETVAL, 0);
+	semctl(semId, PorteGBtoExit, SETVAL, 0);
+	semctl(semId, MutexSM, SETVAL, 1);
+	
 	
 	
 	
@@ -120,7 +126,7 @@ int main(void)
 	}
 	else if( (porteS = fork() ) == 0)
 	{
-		Sortie(semId, memId);
+		Sortie(memId, semId);
 	}
 	else
 	{

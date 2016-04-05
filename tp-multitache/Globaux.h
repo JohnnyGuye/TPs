@@ -1,6 +1,6 @@
 #pragma once
 
-#include <string.h>
+#include <string>
 
 #include "Outils.h"
 
@@ -9,16 +9,23 @@
 const mode_t DROITS = 0660;
 
 //Noms des canaux
-static const char
-	*CANAL_PBP = "Canal_Prof_Blaise_Pascal",
-	*CANAL_ABP = "Canal_Autre_Blaise_Pascal",
-	*CANAL_GB = "Canal_Gaston_Berger",
-	*CANAL_S = "Canal_Sortie";
+//Definitivement je vais être obligé d'utiliser les defines -_-
+#define CANAL_PBP "Canal_Prof_Blaise_Pascal"
+#define CANAL_ABP "Canal_Autre_Blaise_Pascal"
+#define CANAL_GB "Canal_Gaston_Berger"
+#define CANAL_S "Canal_Sortie"
+/*
+static const char * CANAL_PBP = "Canal_Prof_Blaise_Pascal",
+	* CANAL_ABP = "Canal_Autre_Blaise_Pascal",
+	* CANAL_GB = "Canal_Gaston_Berger",
+	* CANAL_S = "Canal_Sortie";
+*/
 
 typedef enum Semaphore {
-	PortePBPtoExit,
-	PorteABPtoExit,
-	PorteGBtoExit
+	PortePBPtoExit = 1,
+	PorteABPtoExit = 2,
+	PorteGBtoExit = 3,
+	MutexSM = 4 	//Ajout parce que pbs de mémoire
 } Semaphore;
 //Qu'est-ce que c'est que donc une voiture ?
 //Note à moi-même, c'était pas ouf de rajouter 

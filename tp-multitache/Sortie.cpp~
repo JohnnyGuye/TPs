@@ -7,7 +7,7 @@
 static int semId, memId;
 static int tubeFromKeyboard;
 
-static deque<pair<pid_t, Voiture>> voitures;
+static map<pid_t, Voiture> voitures;
 
 static void killVoiturier(int);
 static void killBarriere(int);
@@ -23,7 +23,7 @@ static void killBarriere(int signal)
 		action.sa_flags = 0;
 		sigaction(SIGCHLD, &action, NULL);
 		
-		deque<pair<pid_t, Voiture>>::iterator it;
+		map<pid_t, Voiture>::iterator it;
 		for(it = voitures.begin(); it != voitures.end(); it++)
 			kill((it)->first, SIGUSR2);
 		
@@ -40,7 +40,66 @@ static void killVoiturier(int signal)
 {
 	if(signal == SIGCHLD)
 	{
-		deque.pop_front();
+		struct sembuf pSM = {MutexSM, -1, 0};
+		struct sembuf vSM = {MutexSM, 1, 0};
+	
+		int retour;
+		Voiture reqPBP, reqABP, reqGB, v;
+		
+		pid_t voiturier = wait(&retour);
+		retour = WEXITSTATUS(retour);
+		
+		//Accèse mémoire
+		while(semop(semId, &pSM, 1) == -1 && errno == EINTR);		
+		shMem *sharedMemory = (shMem *) shmat(memId, NULL, 0);
+		v = sharedMemory->places[retour -1];//recup de la voiture puis effacement de son existance dans la sm
+		sharedMemory->places[retour -1] = { 0, 0, AUCUN };
+		reqPBP = sharedMemory->requetes[(int)PROF_BLAISE_PASCAL - 1];
+		reqABP = sharedMemory->requetes[(int)AUTRE_BLAISE_PASCAL -1];
+		reqGB = sharedMemory->requetes[(int)ENTREE_GASTON_BERGER -1];
+		shmdt(sharedMemory);		
+		semop(semId, &vSM, 1);
+		//--Fin accès mémoire
+		
+		AfficherSortie( v.usager, v.numIndex, v.arrivee, time(NULL) );
+		
+		map<pid_t, Voiture>::iterator it = voitures.find(voiturier);
+		voitures.erase(it);
+		
+		//On choisir l'ordre des priorité. 
+		//La porte exclusive prof est prioritaire.
+		//Ensuite c'est GB s'il y a un prof
+		//Si deux usagers lambda sont présents, c'est le premier qui est servi
+		//On note que si deux profs sont aux deux portes, celui qui s'est mis dans la porte fourre tout est perdant
+		TypeBarriere nextV;
+		if( reqPBP.usager == PROF )			
+			nextV = PROF_BLAISE_PASCAL;
+		else if( reqGB.usager == PROF ) 	
+			nextV = ENTREE_GASTON_BERGER;
+		else if( (reqABP.usager == AUTRE ) && (reqGB.usager == AUTRE ) )
+			nextV = ( reqABP.arrivee > reqGB.arrivee ? ENTREE_GASTON_BERGER : AUTRE_BLAISE_PASCAL );
+		else if( reqABP.usager != AUCUN )
+			nextV = AUTRE_BLAISE_PASCAL;
+		else if( reqGB.usager != AUCUN )
+			nextV = ENTREE_GASTON_BERGER;
+		else
+			nextV = AUCUNE;
+			
+		if( nextV != 0 )
+		{
+			struct sembuf v = {(short unsigned int)nextV, 1, 0};
+			
+			//Accès mémoire
+			while(semop(semId, &pSM, 1) == -1 && errno == EINTR);
+			shMem *sharedMemory = (shMem *) shmat(memId, NULL, 0);
+			reqPBP = sharedMemory->requetes[nextV - 1];
+			shmdt(sharedMemory);
+			semop(semId, &vSM, 1);
+			//--Fin accès mémoire
+			
+			semop(semId, &v, 1);
+		}	
+		
 	
 	}
 }
@@ -51,20 +110,25 @@ static void run()
 	unsigned int valeur;
 	pid_t voiturier;
 	
+	//struct sembuf v = {type, 1, 0};
+	struct sembuf pSM = {MutexSM, -1, 0};
+	struct sembuf vSM = {MutexSM, 1, 0};
+	
 	if( read(tubeFromKeyboard, &valeur, sizeof(valeur)) > 0)
 	{
+		
+		while(semop(semId, &pSM, 1) == -1 && errno == EINTR);
+		
 		shMem *sharedMemory = (shMem *) shmat(memId, NULL, 0);
 		voiture = sharedMemory->places[valeur -1];
-		sharedMemory->places[valeur -1] = { 0, 0, AUCUN };
 		shmdt(sharedMemory);
 		
-		voiturier = SortirVoiture ( valeur );
-		cerr << "--" << valeur;
-		voitures.push_back(pair<pid_t, Voiture>(voiturier, voiture));
+		semop(semId, &vSM, 1);
 		
+		voiturier = SortirVoiture ( valeur );
+		voitures.insert(pair<pid_t, Voiture>(voiturier, voiture));
 		
 		Effacer( (TypeZone)( ETAT_P1 + (valeur - 1)) );
-		cerr << "efface";
 	}
 
 }

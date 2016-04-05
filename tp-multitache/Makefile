@@ -66,11 +66,13 @@ all : $(OBJ) $(MAIN).o
 	
 # ==== CREATION ====
 
-$(MAIN).o : $(MAIN).cpp GestClav.o
+$(MAIN).o : $(MAIN).cpp GestClav.o Sortie.o Entree.o 
 Heure.o : Heure.h
 Menu.o : Menu.h
 Outils.o : Outils.h
 GestClav.o : GestClav.cpp Menu.h
+Entree.o: Entree.cpp Entree.h
+Sortie.o : Sortie.cpp Sortie.h
 
 rebuild:
 	$(MAKE) clean

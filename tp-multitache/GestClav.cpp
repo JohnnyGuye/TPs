@@ -14,7 +14,8 @@
 #include <iostream>
 //-----------------------------------------------Portée programme
 
-static int tubePBP, tubeABP, tubeGB, tubeS;
+static int tubePBP, tubeABP, tubeGB, tubeS,
+	indexVoiture;
 
 /** @brief fonctionnement du processus Clavier
 **/

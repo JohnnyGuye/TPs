@@ -14,7 +14,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include <deque>
+#include <map>
 #include <tuple>
 
 void Sortie ( int memId, int semId);

@@ -33,26 +33,42 @@ static void run(TypeBarriere type)
 {
 	
 	Voiture voiture;//Stocke la dernière voiture dans la file
+	struct sembuf p = {type, -1, 0};
+	struct sembuf pSM = {MutexSM, -1, 0};
+	struct sembuf vSM = {MutexSM, 1, 0};
 	
 	if( read(tubeFromKeyboard, &voiture, sizeof(Voiture)) > 0)//A chaque fois qu'une voiture arrive
 	{
 		DessinerVoitureBarriere(type, voiture.usager);
 		
+		while(semop(semId, &pSM, 1) == -1 && errno == EINTR);	//On demande l'accès à la SM
 		
 		shMem *sharedMemory = (shMem *) shmat(memId, NULL, 0);
 		
-		if(sharedMemory->nbPlacesTaken == 0)
+		if(sharedMemory->nbPlacesTaken == NB_PLACES)
 		{
 			AfficherRequete(type, voiture.usager, voiture.arrivee);
 			sharedMemory->requetes[type - 1] = voiture;
 			shmdt(sharedMemory);
+			
+			semop(semId, &vSM, 1);
+			
+			while(semop(semId, &p, 1) == -1 && errno == EINTR);
+		}
+		else
+		{	
+			sharedMemory->nbPlacesTaken++;
+			shmdt(sharedMemory);
+			
+			semop(semId, &vSM, 1);
+			
+			pid_t voiturier = GarerVoiture(type);
+			voitures.insert(pair<pid_t, Voiture>(voiturier, voiture));
+			
+			//Y avait le soucis de la requete qui restait affichée même quand la voiture se garait
+			Effacer( (TypeZone) (REQUETE_R1 + (type - 1) )  );
 		}
 		
-		pid_t voiturier = GarerVoiture(type);
-		voitures.insert(pair<pid_t, Voiture>(voiturier, voiture));
-		
-		//Y avait le soucis de la requete qui restait affichée même quand la voiture se garait
-		Effacer( (TypeZone) (REQUETE_R1 + (type - 1) )  );
 	}
 }
 
@@ -97,7 +113,6 @@ static void killVoiturier (int signal)
 		retour = WEXITSTATUS(retour);
 		v = ( voitures.find(voiturier) )->second;
 		
-		cerr << retour << "--";
 		AfficherPlace(retour, v.usager, v.numIndex, v.arrivee);
 		
 		shMem *sharedMemory = (shMem*) shmat(memId, NULL, 0);
@@ -113,9 +128,13 @@ static void killVoiturier (int signal)
 
 void Entree(TypeBarriere type, int memID, int semID)
 {
-	stringstream ss;
-	ss << "Init barrière" << (int)type << endl;
-	cerr << ss;
+	switch(type)
+	{
+		case 1: cerr << "I1";	break;
+		case 2: cerr << "I2";	break;
+		case 3: cerr << "I3";	break;
+		default:cerr << "Fail";	break;
+	}
 	memId = memID;
 	semId = semID;
 	//Handler kill en premier pour éviter les mauvaises surprises
@@ -148,7 +167,6 @@ void Entree(TypeBarriere type, int memID, int semID)
 			break;
 	}
 	
-	cerr << "Boucle barrière type " << (int)type << endl;
 	for(;;)	run(type);
 	
 }
